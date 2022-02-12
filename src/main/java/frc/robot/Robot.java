@@ -15,8 +15,9 @@ import com.ctre.phoenix.motorcontrol.can.TalonSRX;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.CommandScheduler;
 import edu.wpi.first.wpilibj2.command.button.JoystickButton;
-//import frc.robot.commands.RunIntake;
+import frc.robot.subsystems.Conveyer;
 import frc.robot.subsystems.DriveTrain;
+import frc.robot.subsystems.Flywheel;
 import frc.robot.subsystems.IntakeRollers;
 //import edu.wpi.first.wpilibj.GenericHID;
 import frc.robot.Constants.IntakeRollersConstants;
@@ -34,6 +35,8 @@ public class Robot extends TimedRobot {
   // private final Timer m_timer = new Timer(); 
   private DriveTrain m_robotDrive = new DriveTrain();
   private IntakeRollers m_robotIntake = new IntakeRollers();
+  private Conveyer m_robotConveyer = new Conveyer();
+  private Flywheel m_Flywheel = new Flywheel();
   final JoystickButton leftBumperButton = new JoystickButton(m_stick, 9);
   /**
    * This funct ion is run when the robot is first started up and should be used for any
@@ -109,8 +112,10 @@ public class Robot extends TimedRobot {
   /** This function is called periodically during operator control. */
   @Override
   public void teleopPeriodic() { // works
-    m_robotDrive.tankDrive(m_stick.getLeftY(), -m_stick.getRightY()); 
+    
+    m_robotDrive.tankDrive(-m_stick.getLeftY() * 0.5, m_stick.getRightY() * 0.5); 
     m_robotIntake.intakeRun(m_stick, IntakeRollersConstants.kIntakeSpeed);
+    // m_robotConveyer.conveyerRun(m_stick, ConveyerConstants.kconveyerSpeed);
   }
 
   @Override
