@@ -24,8 +24,6 @@ public class IntakeRollers {
     rollers.setNeutralMode(NeutralMode.Brake);
     rollers.setInverted(true);
     
-
-
   }
 
   public void intakeRun(XboxController controller, double power)
