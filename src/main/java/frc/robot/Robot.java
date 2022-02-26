@@ -36,7 +36,7 @@ public class Robot extends TimedRobot {
   private DriveTrain m_robotDrive = new DriveTrain();
   private IntakeRollers m_robotIntake = new IntakeRollers();
   private Conveyer m_robotConveyer = new Conveyer();
-  private Flywheel m_Flywheel = new Flywheel();
+  private Flywheel m_robotFlywheel = new Flywheel();
   final JoystickButton leftBumperButton = new JoystickButton(m_stick, 9);
   /**
    * This funct ion is run when the robot is first started up and should be used for any
@@ -113,9 +113,12 @@ public class Robot extends TimedRobot {
   @Override
   public void teleopPeriodic() { // works
     
-    m_robotDrive.tankDrive(-m_stick.getLeftY() * 0.5, m_stick.getRightY() * 0.5); 
+    m_robotDrive.tankDrive(-Math.pow(m_stick.getLeftY(), 2), Math.pow(m_stick.getRightY(), 2)); 
     m_robotIntake.intakeRun(m_stick, IntakeRollersConstants.kIntakeSpeed);
+    //m_robotFlywheel.flywheelRun(m_stick, ConveyerConstants.kconveyerSpeed);
     // m_robotConveyer.conveyerRun(m_stick, ConveyerConstants.kconveyerSpeed);
+    m_robotDrive.arcadeDrive(-m_stick.getY(), m_stick.getX());
+
   }
 
   @Override
