@@ -34,12 +34,13 @@ public final class Constants {
     public static final class ConveyerConstants
     {
         public static final int kConveyerID = 10000;
-        public static final int kconveyerSpeed = 50;
+        public static final int kConveyerSpeed = 50;
     }
 
     public static final class FlywheelConstants
     {
-        public static final int kFlywheelID = 10000;
+        public static final int kLeftFlywheelID = 50;
+        public static final int kRightFlywheelID = 51;
         public static final int kFlywheelSpeed = 50;
     }
 

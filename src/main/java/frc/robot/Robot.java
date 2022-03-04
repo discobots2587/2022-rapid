@@ -21,6 +21,8 @@ import frc.robot.subsystems.Flywheel;
 import frc.robot.subsystems.IntakeRollers;
 //import edu.wpi.first.wpilibj.GenericHID;
 import frc.robot.Constants.IntakeRollersConstants;
+import frc.robot.Constants.FlywheelConstants;
+import frc.robot.Constants.ConveyerConstants;
 /**
  * The VM is configured to automatically run this class, and to call the functions corresponding to
  * each mode, as described in the TimedRobot documentation. If you change the name of this class or
@@ -115,9 +117,9 @@ public class Robot extends TimedRobot {
     
     m_robotDrive.tankDrive(-Math.pow(m_stick.getLeftY(), 2), Math.pow(m_stick.getRightY(), 2)); 
     m_robotIntake.intakeRun(m_stick, IntakeRollersConstants.kIntakeSpeed);
-    //m_robotFlywheel.flywheelRun(m_stick, ConveyerConstants.kconveyerSpeed);
-    // m_robotConveyer.conveyerRun(m_stick, ConveyerConstants.kconveyerSpeed);
-    m_robotDrive.arcadeDrive(-m_stick.getY(), m_stick.getX());
+    m_robotFlywheel.flywheelRun(m_stick, FlywheelConstants.kFlywheelSpeed);
+    m_robotConveyer.conveyerRun(m_stick, ConveyerConstants.kConveyerSpeed);
+  //  m_robotDrive.arcadeDrive(-m_stick.getY(), m_stick.getX());
 
   }
 

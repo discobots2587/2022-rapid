@@ -1,7 +1,6 @@
 package frc.input;
 
 import edu.wpi.first.wpilibj.XboxController;
-import edu.wpi.first.wpilibj.GenericHID.Hand;
 
 /**
  * The input from the XBox remote
@@ -17,7 +16,7 @@ public class XBoxInput extends InputMethod {
 
   @Override
   public double leftSidePower() {
-    double forward = controller.getY(Hand.kLeft);
+    double forward = controller.getLeftY();
     if(Math.abs(forward) < JOYSTICK_DEAD_ZONE)
       return 0;
     return forward;
@@ -25,7 +24,7 @@ public class XBoxInput extends InputMethod {
 
   @Override
   public double rightSidePower() {
-    double forward = controller.getY(Hand.kRight);
+    double forward = controller.getRightY();
     if(Math.abs(forward) < JOYSTICK_DEAD_ZONE)
       return 0;
     return forward;
