@@ -9,8 +9,8 @@ import frc.robot.Constants.ConveyerConstants;
 //import edu.wpi.first.wpilibj2.command.SubsystemBase;
 
 public class Conveyer {
-    private TalonSRX conveyer = new TalonSRX(ConveyerConstants.kConveyerID);
-
+    private TalonSRX conveyer = new TalonSRX(ConveyerConstants.kRightConveyerID);
+    private TalonSRX leftConveyer = new TalonSRX(ConveyerConstants.kLeftConveyerID);
   public static enum ConveyerStates {
     OFF, IN, OUT
   }
@@ -21,6 +21,7 @@ public class Conveyer {
    * Creates a new Conveyer.
    */
   public Conveyer() {
+    leftConveyer.follow(conveyer);
     conveyer.setNeutralMode(NeutralMode.Brake);
     conveyer.setInverted(true);
 
@@ -33,6 +34,14 @@ public class Conveyer {
       index(power);
     }
     if (controller.getRightBumperReleased())
+    {
+      stop();
+    }
+    if(controller.getYButtonPressed())
+    {
+      index(-power);
+    }
+    if (controller.getYButtonReleased())
     {
       stop();
     }

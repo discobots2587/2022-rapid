@@ -24,16 +24,24 @@ public class Flywheel {
     //Restore factory defaults -- should presist between power cycles
     leadFlywheel.restoreFactoryDefaults();
     followFlywheel.restoreFactoryDefaults();
-    leadFlywheel.setInverted(true);
+    followFlywheel.follow(leadFlywheel,true);
   }
 
-  public void flywheelRun(XboxController controller, double power)
+  public void flywheelRun(XboxController controller, double lowPower, double highPower)
   {
     if (controller.getAButtonPressed())
     {
-      shoot(power);
+      shoot(lowPower);
     }
     if (controller.getAButtonReleased())
+    {
+      stop();
+    }
+    if (controller.getBButtonPressed())
+    {
+      shoot(highPower);
+    }
+    if (controller.getBButtonReleased())
     {
       stop();
     }
