@@ -115,7 +115,7 @@ public class Robot extends TimedRobot {
   @Override
   public void teleopPeriodic() { // works
     
-    m_robotDrive.tankDrive(-Math.pow(m_stick.getLeftY(), 2), Math.pow(m_stick.getRightY(), 2)); 
+    m_robotDrive.tankDrive(-m_stick.getLeftY() * 0.5, m_stick.getRightY() * 0.5);  // LDR revert to previous tested code
     m_robotIntake.intakeRun(m_stick, IntakeRollersConstants.kIntakeSpeed);
     m_robotFlywheel.flywheelRun(m_stick, FlywheelConstants.kFlywheelLowSpeed, FlywheelConstants.kFlywheelHighSpeed);
     m_robotConveyer.conveyerRun(m_stick, ConveyerConstants.kConveyerSpeed);
