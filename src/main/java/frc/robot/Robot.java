@@ -10,9 +10,8 @@ package frc.robot;
 
 import edu.wpi.first.wpilibj.XboxController;
 import edu.wpi.first.wpilibj.TimedRobot;
-//import edu.wpi.first.wpilibj.Joystick;
-// import edu.wpi.first.wpilibj.drive.DifferentialDrive;
-// import edu.wpi.first.wpilibj.motorcontrol.Talon;
+import edu.wpi.first.wpilibj.Timer;
+
 import com.ctre.phoenix.motorcontrol.can.TalonSRX;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.CommandScheduler;
@@ -21,7 +20,6 @@ import frc.robot.subsystems.Conveyer;
 import frc.robot.subsystems.DriveTrain;
 import frc.robot.subsystems.Flywheel;
 import frc.robot.subsystems.IntakeRollers;
-//import edu.wpi.first.wpilibj.GenericHID;
 import frc.robot.Constants.IntakeRollersConstants;
 import frc.robot.Constants.FlywheelConstants;
 import frc.robot.Constants.ConveyerConstants;
@@ -36,7 +34,7 @@ public class Robot extends TimedRobot {
   // private RobotContainer m_robotContainer;
   TalonSRX talon0 = new TalonSRX(0);
   private final XboxController m_stick = new XboxController(0);
-  // private final Timer m_timer = new Timer(); 
+  private final Timer m_timer = new Timer(); 
   private DriveTrain m_robotDrive = new DriveTrain();
   private IntakeRollers m_robotIntake = new IntakeRollers();
   private Conveyer m_robotConveyer = new Conveyer();
@@ -81,25 +79,20 @@ public class Robot extends TimedRobot {
   /** This autonomous runs the autonomous command selected by your {@link RobotContainer} class. */
   // @Override
   public void autonomousInit() {
-     //m_timer.reset();//has error -Andy
-     //m_timer.start();//has error
-    
-    //m_autonomousCommand = m_robotContainer.getAutonomousCommand(); // this has an error, getAutonomousCommand doesnt exist -Andy 
-
-    // schedule the autonomous command (example)
-     //if (m_autonomousCommand != null) {
-     //  m_autonomousCommand.schedule();
-     //}
+   
+     if (m_autonomousCommand != null) {
+      m_autonomousCommand.schedule();
+     }
    }
 
   /** This function is called periodically during autonomous. */
   @Override
   public void autonomousPeriodic() {
-    /*if(m_timer.get() < 2.0){  //error with get timer
-      m_robotDrive.arcadeDrive(0.5, 0);
+    if(m_timer.get() < 2.0){  //error with get timer
+      m_robotConveyer.index(-1);
     } else {
-      m_robotDrive.stopMotor(); //stop robot 
-    }*/
+      m_robotConveyer.stop(); //stop robot 
+    }
   }
 
   @Override
@@ -123,6 +116,10 @@ public class Robot extends TimedRobot {
     m_robotConveyer.conveyerRun(m_stick, ConveyerConstants.kConveyerSpeed);
     m_robotIntake.moveIntake(m_stick);
   //  m_robotDrive.arcadeDrive(-m_stick.getY(), m_stick.getX());
+    m_robotIntake.intakeRun(m_stick, IntakeRollersConstants.kIntakeSpeed);
+    m_robotFlywheel.flywheelRun(m_stick, FlywheelConstants.kFlywheelLowSpeed, FlywheelConstants.kFlywheelHighSpeed);
+    m_robotConveyer.conveyerRun(m_stick, ConveyerConstants.kConveyerSpeed);
+    //m_robotDrive.arcadeDrive(-m_stick.getLeftY(), m_stick.getLeftX());
 
   }
 

@@ -16,6 +16,8 @@ public class IntakeRollers {
     private TalonSRX rollers = new TalonSRX(IntakeRollersConstants.kRollersID);
     private DoubleSolenoid deploy = new DoubleSolenoid(IntakeRollersConstants.kPCMID, PneumaticsModuleType.CTREPCM, IntakeRollersConstants.kdeployForwardChannel, IntakeRollersConstants.kdeployBackwardChannel);
     private boolean toggle = false;
+    //private final Solenoid deploy = new Solenoid(IntakeRollersConstants.kdeployChannel);
+
 
   public static enum IntakeRollersStates {
     OFF, IN, OUT
@@ -115,4 +117,7 @@ public class IntakeRollers {
     return state;
   }
 
+  // public void deploy() {
+  //   deploy.set(!deploy.get());
+  // }
 }
