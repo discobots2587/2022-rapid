@@ -2,6 +2,8 @@
 // Open Source Software; you can modify and/or share it under the terms of
 // the WPILib BSD license file in the root directory of this project.
 
+// 
+
 package frc.robot;
 
 // import java.util.Timer;
@@ -109,6 +111,11 @@ public class Robot extends TimedRobot {
   public void teleopPeriodic() { // works
     
     m_robotDrive.tankDrive(-m_stick.getLeftY() * 0.5, m_stick.getRightY() * 0.5);  // LDR revert to previous tested code
+    m_robotIntake.intakeToggle(m_stick, IntakeRollersConstants.kIntakeSpeed);
+    m_robotFlywheel.flyWheelToggle(m_stick, FlywheelConstants.kFlywheelLowSpeed, FlywheelConstants.kFlywheelHighSpeed);
+    m_robotConveyer.conveyerRun(m_stick, ConveyerConstants.kConveyerSpeed);
+    //m_robotIntake.moveIntake(m_stick);
+  //  m_robotDrive.arcadeDrive(-m_stick.getY(), m_stick.getX());
     m_robotIntake.intakeRun(m_stick, IntakeRollersConstants.kIntakeSpeed);
     m_robotFlywheel.flywheelRun(m_stick, FlywheelConstants.kFlywheelLowSpeed, FlywheelConstants.kFlywheelHighSpeed);
     m_robotConveyer.conveyerRun(m_stick, ConveyerConstants.kConveyerSpeed);

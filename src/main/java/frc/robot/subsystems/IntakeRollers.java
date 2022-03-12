@@ -4,6 +4,9 @@ package frc.robot.subsystems;
 import com.ctre.phoenix.motorcontrol.ControlMode;
 import com.ctre.phoenix.motorcontrol.NeutralMode;
 import com.ctre.phoenix.motorcontrol.can.TalonSRX;
+
+import edu.wpi.first.wpilibj.PneumaticsModuleType;
+import edu.wpi.first.wpilibj.Solenoid;
 //import edu.wpi.first.wpilibj.Solenoid;
 import edu.wpi.first.wpilibj.XboxController;
 //import edu.wpi.first.wpilibj2.command.SubsystemBase;
@@ -11,6 +14,8 @@ import frc.robot.Constants.IntakeRollersConstants;
 
 public class IntakeRollers {
     private TalonSRX rollers = new TalonSRX(IntakeRollersConstants.kRollersID);
+    //private Solenoid deploy = new Solenoid(PneumaticsModuleType.CTREPCM, IntakeRollersConstants.kdeployChannel);
+    private boolean toggle = false;
     //private final Solenoid deploy = new Solenoid(IntakeRollersConstants.kdeployChannel);
 
 
@@ -34,6 +39,7 @@ public class IntakeRollers {
     if (controller.getLeftBumperPressed())
     {
       spin(power);
+      
     }
     if (controller.getLeftBumperReleased())
     {
@@ -48,6 +54,35 @@ public class IntakeRollers {
       stop();
     }
   }
+  public void intakeToggle(XboxController controller, double power)
+  {
+    
+    if (controller.getRawButtonPressed(5)) {
+      if (toggle) {
+          // Current state is true so turn off
+          stop();
+          toggle = false;
+      } else {
+          // Current state is false so turn on
+          stop();
+          spin(power);
+          toggle = true;
+      }
+    }
+
+    if (controller.getRawButtonPressed(3)) {
+      if (toggle) {
+          // Current state is true so turn off
+          stop();
+          toggle = false;
+      } else {
+          // Current state is false so turn on
+          stop();
+          spin(-power);
+          toggle = true;
+      }
+    }
+  }
   /**
    * Spins the rollers at a given power
    * 
@@ -57,6 +92,14 @@ public class IntakeRollers {
     rollers.set(ControlMode.PercentOutput, power);
   }
 
+  // public void moveIntake(XboxController controller)
+  // {
+  //   if (controller.getStartButtonPressed())
+  //   {
+  //     deploy.toggle();
+  //   }
+  // }
+  
   /**
    * Stop the rollers
    */

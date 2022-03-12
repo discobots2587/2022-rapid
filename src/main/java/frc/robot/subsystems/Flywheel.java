@@ -10,6 +10,7 @@ import com.revrobotics.CANSparkMaxLowLevel.MotorType;
 public class Flywheel {
     private CANSparkMax leadFlywheel = new CANSparkMax(FlywheelConstants.kLeftFlywheelID, MotorType.kBrushless);
     private CANSparkMax followFlywheel = new CANSparkMax(FlywheelConstants.kRightFlywheelID, MotorType.kBrushless);
+    private boolean toggle = false;
   public static enum FlywheelStates {
     OFF, IN, OUT
   }
@@ -44,6 +45,36 @@ public class Flywheel {
     if (controller.getBButtonReleased())
     {
       stop();
+    }
+  }
+
+  public void flyWheelToggle(XboxController controller, double lowPower, double highPower)
+  {
+    
+    if (controller.getRawButtonPressed(1)) {
+      if (toggle) {
+          // Current state is true so turn off
+          stop();
+          toggle = false;
+      } else {
+          // Current state is false so turn on
+          stop();
+          shoot(lowPower);
+          toggle = true;
+      }
+    }
+
+    if (controller.getRawButtonPressed(2)) {
+      if (toggle) {
+          // Current state is true so turn off
+          stop();
+          toggle = false;
+      } else {
+          // Current state is false so turn on
+          stop();
+          shoot(highPower);
+          toggle = true;
+      }
     }
   }
   /**

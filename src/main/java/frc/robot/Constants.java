@@ -27,7 +27,7 @@ public final class Constants {
     public static final class IntakeRollersConstants {
         public static final int kRollersID = 0;
         public static final int kIntakeSpeed = 50;
-        public static final int kdeployChannel = 1;
+        public static final int kdeployChannel = 9;
 
     }
 
