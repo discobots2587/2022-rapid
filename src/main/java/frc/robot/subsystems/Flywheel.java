@@ -1,16 +1,15 @@
 package frc.robot.subsystems;
 
 
-import com.ctre.phoenix.motorcontrol.ControlMode;
-import com.ctre.phoenix.motorcontrol.NeutralMode;
-import com.ctre.phoenix.motorcontrol.can.TalonSRX;
 import edu.wpi.first.wpilibj.XboxController;
 import frc.robot.Constants.FlywheelConstants;
+import com.revrobotics.CANSparkMax;
+import com.revrobotics.CANSparkMaxLowLevel.MotorType;
 //import edu.wpi.first.wpilibj2.command.SubsystemBase;
 
 public class Flywheel {
-    private TalonSRX flywheel = new TalonSRX(FlywheelConstants.kFlywheelID);
-
+    private CANSparkMax leadFlywheel = new CANSparkMax(FlywheelConstants.kLeftFlywheelID, MotorType.kBrushless);
+    private CANSparkMax followFlywheel = new CANSparkMax(FlywheelConstants.kRightFlywheelID, MotorType.kBrushless);
   public static enum FlywheelStates {
     OFF, IN, OUT
   }
@@ -21,18 +20,28 @@ public class Flywheel {
    * Creates a new IntakeRollers.
    */
   public Flywheel() {
-    flywheel.setNeutralMode(NeutralMode.Brake);
-    flywheel.setInverted(true);
-
+    //HACKLDR leadFlywheel.setNeutralMode(NeutralMode.Brake);
+    //Restore factory defaults -- should presist between power cycles
+    leadFlywheel.restoreFactoryDefaults();
+    followFlywheel.restoreFactoryDefaults();
+    followFlywheel.follow(leadFlywheel,true);
   }
 
-  public void flywheelRun(XboxController controller, double power)
+  public void flywheelRun(XboxController controller, double lowPower, double highPower)
   {
     if (controller.getAButtonPressed())
     {
-      shoot(power);
+      shoot(lowPower);
     }
     if (controller.getAButtonReleased())
+    {
+      stop();
+    }
+    if (controller.getBButtonPressed())
+    {
+      shoot(highPower);
+    }
+    if (controller.getBButtonReleased())
     {
       stop();
     }
@@ -43,14 +52,14 @@ public class Flywheel {
    * @param power the power to shoot the flywheel at [-1, 1]. Negative values spin outwards.
    */
   public void shoot(double power) {
-    flywheel.set(ControlMode.PercentOutput, power);
+    leadFlywheel.set( power);
   }
 
   /**
    * Stop the flywheel
    */
   public void stop() {
-    flywheel.set(ControlMode.PercentOutput, 0);
+    leadFlywheel.set((double)0.0);
   }
 
 

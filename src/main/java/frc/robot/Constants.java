@@ -33,14 +33,17 @@ public final class Constants {
 
     public static final class ConveyerConstants
     {
-        public static final int kConveyerID = 10000;
-        public static final int kconveyerSpeed = 50;
+        public static final int kRightConveyerID = 40;
+        public static final int kLeftConveyerID = 20;
+        public static final int kConveyerSpeed = 50;
     }
 
     public static final class FlywheelConstants
     {
-        public static final int kFlywheelID = 10000;
-        public static final int kFlywheelSpeed = 50;
+        public static final int kLeftFlywheelID = 50;
+        public static final int kRightFlywheelID = 51;
+        public static final double kFlywheelLowSpeed = 0.25; // Range -1. to 1.
+        public static final double kFlywheelHighSpeed = 0.5; 
     }
 
       
