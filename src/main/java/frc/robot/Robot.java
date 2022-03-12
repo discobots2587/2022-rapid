@@ -115,7 +115,7 @@ public class Robot extends TimedRobot {
     m_robotFlywheel.flyWheelToggle(m_stick, FlywheelConstants.kFlywheelLowSpeed, FlywheelConstants.kFlywheelHighSpeed);
     m_robotConveyer.conveyerRun(m_stick, ConveyerConstants.kConveyerSpeed);
     m_robotIntake.moveIntake(m_stick);
-    //m_robotDrive.arcadeDrive(-m_stick.getLeftY(), m_stick.getLeftX());
+    //m_robotDrive.arcadeDrive(m_stick.getRightX() * 0.5, -m_stick.getLeftY() * 0.5); spins around, needs to be tested
 
   }
 
