@@ -5,16 +5,16 @@ import com.ctre.phoenix.motorcontrol.ControlMode;
 import com.ctre.phoenix.motorcontrol.NeutralMode;
 import com.ctre.phoenix.motorcontrol.can.TalonSRX;
 
+import edu.wpi.first.wpilibj.DoubleSolenoid;
 import edu.wpi.first.wpilibj.PneumaticsModuleType;
-import edu.wpi.first.wpilibj.Solenoid;
-//import edu.wpi.first.wpilibj.Solenoid;
 import edu.wpi.first.wpilibj.XboxController;
+import edu.wpi.first.wpilibj.DoubleSolenoid.Value;
 //import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants.IntakeRollersConstants;
 
 public class IntakeRollers {
     private TalonSRX rollers = new TalonSRX(IntakeRollersConstants.kRollersID);
-    //private Solenoid deploy = new Solenoid(PneumaticsModuleType.CTREPCM, IntakeRollersConstants.kdeployChannel);
+    private DoubleSolenoid deploy = new DoubleSolenoid(IntakeRollersConstants.kPCMID, PneumaticsModuleType.CTREPCM, IntakeRollersConstants.kdeployForwardChannel, IntakeRollersConstants.kdeployBackwardChannel);
     private boolean toggle = false;
     //private final Solenoid deploy = new Solenoid(IntakeRollersConstants.kdeployChannel);
 
@@ -31,6 +31,7 @@ public class IntakeRollers {
   public IntakeRollers() {
     rollers.setNeutralMode(NeutralMode.Brake);
     rollers.setInverted(true);
+    deploy.set(Value.kForward);
     
   }
 
@@ -92,13 +93,13 @@ public class IntakeRollers {
     rollers.set(ControlMode.PercentOutput, power);
   }
 
-  // public void moveIntake(XboxController controller)
-  // {
-  //   if (controller.getStartButtonPressed())
-  //   {
-  //     deploy.toggle();
-  //   }
-  // }
+  public void moveIntake(XboxController controller)
+  {
+    if (controller.getStartButtonPressed())
+    {
+      deploy.toggle();
+    }
+  }
   
   /**
    * Stop the rollers

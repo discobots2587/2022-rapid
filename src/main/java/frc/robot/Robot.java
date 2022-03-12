@@ -114,7 +114,7 @@ public class Robot extends TimedRobot {
     m_robotIntake.intakeToggle(m_stick, IntakeRollersConstants.kIntakeSpeed);
     m_robotFlywheel.flyWheelToggle(m_stick, FlywheelConstants.kFlywheelLowSpeed, FlywheelConstants.kFlywheelHighSpeed);
     m_robotConveyer.conveyerRun(m_stick, ConveyerConstants.kConveyerSpeed);
-    //m_robotIntake.moveIntake(m_stick);
+    m_robotIntake.moveIntake(m_stick);
   //  m_robotDrive.arcadeDrive(-m_stick.getY(), m_stick.getX());
     m_robotIntake.intakeRun(m_stick, IntakeRollersConstants.kIntakeSpeed);
     m_robotFlywheel.flywheelRun(m_stick, FlywheelConstants.kFlywheelLowSpeed, FlywheelConstants.kFlywheelHighSpeed);
