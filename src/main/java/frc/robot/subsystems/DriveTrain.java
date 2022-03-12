@@ -10,6 +10,7 @@ package frc.robot.subsystems;
 import com.ctre.phoenix.motorcontrol.can.TalonSRX;
 import com.ctre.phoenix.motorcontrol.ControlMode;
 import edu.wpi.first.wpilibj.drive.DifferentialDrive;
+//import edu.wpi.first.wpilibj.drive.DifferentialDrive;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants.DriveTrainConstants;
 
@@ -76,6 +77,10 @@ public class DriveTrain extends SubsystemBase {
   public void rotate(double power) {
     leftMaster.set(ControlMode.PercentOutput, power);
     rightMaster.set(ControlMode.PercentOutput, -power);
+  }
+  public void stopMotor() {
+    leftMaster.set(ControlMode.PercentOutput, 0);
+    rightMaster.set(ControlMode.PercentOutput,0);
   }
 
 
