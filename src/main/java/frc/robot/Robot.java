@@ -87,9 +87,9 @@ public class Robot extends TimedRobot {
   @Override
   public void autonomousPeriodic() {
     if(m_timer.get() < 2.0){  //error with get timer
-      m_robotDrive.arcadeDrive(0.5, 0);
+      m_robotConveyer.index(-1);
     } else {
-      m_robotDrive.stopMotor(); //stop robot 
+      m_robotConveyer.stop(); //stop robot 
     }
   }
 
