@@ -8,9 +8,8 @@ import edu.wpi.first.wpilibj.Timer;
 
 import edu.wpi.first.wpilibj.XboxController;
 import edu.wpi.first.wpilibj.TimedRobot;
-//import edu.wpi.first.wpilibj.Joystick;
-// import edu.wpi.first.wpilibj.drive.DifferentialDrive;
-// import edu.wpi.first.wpilibj.motorcontrol.Talon;
+import edu.wpi.first.wpilibj.Timer;
+
 import com.ctre.phoenix.motorcontrol.can.TalonSRX;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.CommandScheduler;
@@ -19,7 +18,6 @@ import frc.robot.subsystems.Conveyer;
 import frc.robot.subsystems.DriveTrain;
 import frc.robot.subsystems.Flywheel;
 import frc.robot.subsystems.IntakeRollers;
-//import edu.wpi.first.wpilibj.GenericHID;
 import frc.robot.Constants.IntakeRollersConstants;
 import frc.robot.Constants.FlywheelConstants;
 import frc.robot.Constants.ConveyerConstants;
@@ -88,6 +86,10 @@ public class Robot extends TimedRobot {
      //if (m_autonomousCommand != null) {
      //  m_autonomousCommand.schedule();
      //}
+   
+     if (m_autonomousCommand != null) {
+      m_autonomousCommand.schedule();
+     }
    }
 
   /** This function is called periodically during autonomous. */
@@ -101,6 +103,11 @@ public class Robot extends TimedRobot {
       m_robotDrive.stopMotor(); //stop robot 
     }
     
+    if(m_timer.get() < 2.0){  //error with get timer
+      m_robotConveyer.index(-1);
+    } else {
+      m_robotConveyer.stop(); //stop robot 
+    }
   }
 
   @Override
@@ -124,6 +131,10 @@ public class Robot extends TimedRobot {
     m_robotConveyer.conveyerRun(m_stick, ConveyerConstants.kConveyerSpeed);
     //m_robotIntake.moveIntake(m_stick);
   //  m_robotDrive.arcadeDrive(-m_stick.getY(), m_stick.getX());
+    m_robotIntake.intakeRun(m_stick, IntakeRollersConstants.kIntakeSpeed);
+    m_robotFlywheel.flywheelRun(m_stick, FlywheelConstants.kFlywheelLowSpeed, FlywheelConstants.kFlywheelHighSpeed);
+    m_robotConveyer.conveyerRun(m_stick, ConveyerConstants.kConveyerSpeed);
+    //m_robotDrive.arcadeDrive(-m_stick.getLeftY(), m_stick.getLeftX());
 
   }
 
