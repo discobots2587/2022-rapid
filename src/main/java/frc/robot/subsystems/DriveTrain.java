@@ -57,13 +57,13 @@ public class DriveTrain extends SubsystemBase {
     // This method will be called once per scheduler run
   }
 
-//   public void arcadeDrive(double throttle, double turn) {   //commented out , this code does not build -Andy
-//     double leftPower = throttle + turn;
-//     double rightPower = throttle - turn;
+  public void arcadeDrive(double throttle, double turn) {   //commented out , this code does not build -Andy
+    double leftPower = throttle + turn;
+    double rightPower = throttle - turn;
 
-//     left.set(ControlMode.PercentOutput, leftPower);
-//     right.set(ControlMode.PercentOutput, rightPower);
- // }
+    leftMaster.set(ControlMode.PercentOutput, leftPower);
+    rightMaster.set(ControlMode.PercentOutput, rightPower);
+ }
 
  public void tankDrive(double leftPower, double rightPower) {
     leftMaster.set(ControlMode.PercentOutput, leftPower);
