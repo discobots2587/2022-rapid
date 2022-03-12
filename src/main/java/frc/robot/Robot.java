@@ -2,11 +2,9 @@
 // Open Source Software; you can modify and/or share it under the terms of
 // the WPILib BSD license file in the root directory of this project.
 
-// 
-
 package frc.robot;
 
-// import java.util.Timer;
+import edu.wpi.first.wpilibj.Timer;
 
 import edu.wpi.first.wpilibj.XboxController;
 import edu.wpi.first.wpilibj.TimedRobot;
@@ -36,7 +34,7 @@ public class Robot extends TimedRobot {
   // private RobotContainer m_robotContainer;
   TalonSRX talon0 = new TalonSRX(0);
   private final XboxController m_stick = new XboxController(0);
-  // private final Timer m_timer = new Timer(); 
+  private final Timer m_timer = new Timer(); 
   private DriveTrain m_robotDrive = new DriveTrain();
   private IntakeRollers m_robotIntake = new IntakeRollers();
   private Conveyer m_robotConveyer = new Conveyer();
@@ -81,8 +79,8 @@ public class Robot extends TimedRobot {
   /** This autonomous runs the autonomous command selected by your {@link RobotContainer} class. */
   // @Override
   public void autonomousInit() {
-     //m_timer.reset();//has error -Andy
-     //m_timer.start();//has error
+     m_timer.reset();
+     m_timer.start();
     
     //m_autonomousCommand = m_robotContainer.getAutonomousCommand(); // this has an error, getAutonomousCommand doesnt exist -Andy 
 
@@ -95,11 +93,14 @@ public class Robot extends TimedRobot {
   /** This function is called periodically during autonomous. */
   @Override
   public void autonomousPeriodic() {
-    /*if(m_timer.get() < 2.0){  //error with get timer
+    if(m_timer.get() < 2.0){  
       m_robotDrive.arcadeDrive(0.5, 0);
+      //m_robotDrive.forward(0.5);
     } else {
+      m_timer.stop();
       m_robotDrive.stopMotor(); //stop robot 
-    }*/
+    }
+    
   }
 
   @Override

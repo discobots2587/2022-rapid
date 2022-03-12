@@ -78,6 +78,9 @@ public class DriveTrain extends SubsystemBase {
     rightMaster.set(ControlMode.PercentOutput, -power);
   }
 
-
+  public void stopMotor()  {
+    leftMaster.set(ControlMode.PercentOutput, 0);
+    rightMaster.set(ControlMode.PercentOutput, 0);
+  }
 
 }
