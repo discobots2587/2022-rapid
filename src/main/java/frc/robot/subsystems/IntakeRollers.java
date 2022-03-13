@@ -5,8 +5,10 @@ import com.ctre.phoenix.motorcontrol.ControlMode;
 import com.ctre.phoenix.motorcontrol.NeutralMode;
 import com.ctre.phoenix.motorcontrol.can.TalonSRX;
 
+import edu.wpi.first.wpilibj.Compressor;
 import edu.wpi.first.wpilibj.DoubleSolenoid;
 import edu.wpi.first.wpilibj.PneumaticsModuleType;
+import edu.wpi.first.wpilibj.Solenoid;
 import edu.wpi.first.wpilibj.XboxController;
 import edu.wpi.first.wpilibj.DoubleSolenoid.Value;
 //import edu.wpi.first.wpilibj2.command.SubsystemBase;
@@ -14,9 +16,11 @@ import frc.robot.Constants.IntakeRollersConstants;
 
 public class IntakeRollers {
     private TalonSRX rollers = new TalonSRX(IntakeRollersConstants.kRollersID);
-    private DoubleSolenoid deploy = new DoubleSolenoid(IntakeRollersConstants.kPCMID, PneumaticsModuleType.CTREPCM, IntakeRollersConstants.kdeployForwardChannel, IntakeRollersConstants.kdeployBackwardChannel);
+    private Solenoid zero = new Solenoid(IntakeRollersConstants.kPCMID, PneumaticsModuleType.CTREPCM, IntakeRollersConstants.kdeployForwardChannel);
+    private Solenoid one = new Solenoid(IntakeRollersConstants.kPCMID, PneumaticsModuleType.CTREPCM, IntakeRollersConstants.kdeployBackwardChannel);
     private boolean toggle = false;
-    //private final Solenoid deploy = new Solenoid(IntakeRollersConstants.kdeployChannel);
+    Compressor pcmCompressor = new Compressor(IntakeRollersConstants.kPCMID, PneumaticsModuleType.CTREPCM);
+
 
 
   public static enum IntakeRollersStates {
@@ -31,8 +35,7 @@ public class IntakeRollers {
   public IntakeRollers() {
     rollers.setNeutralMode(NeutralMode.Brake);
     rollers.setInverted(true);
-    deploy.set(Value.kForward);
-    
+    pcmCompressor.enableDigital();
   }
 
   public void intakeRun(XboxController controller, double power)
@@ -97,7 +100,9 @@ public class IntakeRollers {
   {
     if (controller.getStartButtonPressed())
     {
-      deploy.toggle();
+      one.toggle();
+      zero.toggle();
+
     }
   }
   

@@ -95,19 +95,11 @@ public class Robot extends TimedRobot {
   /** This function is called periodically during autonomous. */
   @Override
   public void autonomousPeriodic() {
-    if(m_timer.get() < 2.0){  
-      m_robotDrive.arcadeDrive(0.5, 0);
-      //m_robotDrive.forward(0.5);
-    } else {
-      m_timer.stop();
-      m_robotDrive.stopMotor(); //stop robot 
-    }
-    
-    if(m_timer.get() < 2.0){  //error with get timer
-      m_robotConveyer.index(-1);
-    } else {
-      m_robotConveyer.stop(); //stop robot 
-    }
+    // if(m_timer.get() < 2.0){  //error with get timer
+    //   m_robotConveyer.index(ConveyerConstants.kConveyerSpeed);
+    // } else {
+    //   m_robotConveyer.stop(); //stop robot 
+    // }
   }
 
   @Override
@@ -125,16 +117,12 @@ public class Robot extends TimedRobot {
   @Override
   public void teleopPeriodic() { // works
     
-    m_robotDrive.tankDrive(-m_stick.getLeftY() * 0.5, m_stick.getRightY() * 0.5);  // LDR revert to previous tested code
+  //  m_robotDrive.tankDrive(-m_stick.getLeftY(), m_stick.getRightY());  // LDR revert to previous tested code
     m_robotIntake.intakeToggle(m_stick, IntakeRollersConstants.kIntakeSpeed);
     m_robotFlywheel.flyWheelToggle(m_stick, FlywheelConstants.kFlywheelLowSpeed, FlywheelConstants.kFlywheelHighSpeed);
     m_robotConveyer.conveyerRun(m_stick, ConveyerConstants.kConveyerSpeed);
     m_robotIntake.moveIntake(m_stick);
-  //  m_robotDrive.arcadeDrive(-m_stick.getY(), m_stick.getX());
-    m_robotIntake.intakeRun(m_stick, IntakeRollersConstants.kIntakeSpeed);
-    m_robotFlywheel.flywheelRun(m_stick, FlywheelConstants.kFlywheelLowSpeed, FlywheelConstants.kFlywheelHighSpeed);
-    m_robotConveyer.conveyerRun(m_stick, ConveyerConstants.kConveyerSpeed);
-    //m_robotDrive.arcadeDrive(-m_stick.getLeftY(), m_stick.getLeftX());
+    m_robotDrive.arcadeDrive(m_stick.getRightX() , -m_stick.getLeftY() ); //tested, working fine
 
   }
 
