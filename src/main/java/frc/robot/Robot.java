@@ -122,8 +122,9 @@ public class Robot extends TimedRobot {
     m_robotFlywheel.flyWheelToggle(m_stick, FlywheelConstants.kFlywheelLowSpeed, FlywheelConstants.kFlywheelHighSpeed);
     m_robotConveyer.conveyerRun(m_stick, ConveyerConstants.kConveyerSpeed);
     m_robotIntake.moveIntake(m_stick);
-    m_robotDrive.arcadeDrive(m_stick.getRightX() , -m_stick.getLeftY() ); //tested, working fine
-
+    //m_robotDrive.arcadeDrive(m_stick.getRightX() , -m_stick.getLeftY() ); //tested, working fine
+    m_robotDrive.arcadeCurvedDrive(m_stick.getRightX(), -m_stick.getLeftY());
+    //m_robotDrive.tankCurvedDrive(-m_stick.getLeftY(), m_stick.getRightY());
   }
 
   @Override

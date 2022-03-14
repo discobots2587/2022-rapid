@@ -63,20 +63,66 @@ public class DriveTrain extends SubsystemBase {
 
     leftMaster.set(ControlMode.PercentOutput, leftPower);
     rightMaster.set(ControlMode.PercentOutput, rightPower);
- }
+  }
 
- public void tankDrive(double leftPower, double rightPower) {
+  public void arcadeCurvedDrive(double leftAxis, double rightAxis)
+  {
+    int LDire = 1; // Linear displacement direction
+    int ADire = 1; // Angular displacement direction
+  
+    if (leftAxis < 0)  
+    {                  
+      LDire = -1;      
+    }
+    if (rightAxis < 0)
+    {
+      ADire = -1; //Math.pow() will not compute negative base with decimal exponent.
+    }
+
+    double leftPower = Math.pow(Math.abs(leftAxis), 1.8)*LDire + Math.pow(Math.abs(rightAxis), 1.8)*ADire;
+    double rightPower = Math.pow(Math.abs(leftAxis), 1.8)*LDire - Math.pow(Math.abs(rightAxis), 1.8)*ADire;
+
     leftMaster.set(ControlMode.PercentOutput, leftPower);
     rightMaster.set(ControlMode.PercentOutput, rightPower);
- }
- public void forward(double power) {
+  }
+
+  public void tankDrive(double leftPower, double rightPower) {
+    leftMaster.set(ControlMode.PercentOutput, leftPower);
+    rightMaster.set(ControlMode.PercentOutput, rightPower);
+  }
+  
+  public void tankCurvedDrive(double leftAxis, double rightAxis)
+  {
+    int LDire = 1; // Left axis displacement direction
+    int RDire = 1; // Right axis displacement direction
+
+    if (leftAxis < 0)
+    {
+      LDire = -1;
+    }
+    if (rightAxis < 0)
+    {
+      RDire = -1;
+    }
+    
+    double leftPower = Math.pow(Math.abs(leftAxis), 1.8)*LDire;
+    double rightPower = Math.pow(Math.abs(rightAxis), 1.8)*RDire;
+
+    leftMaster.set(ControlMode.PercentOutput, leftPower);
+    rightMaster.set(ControlMode.PercentOutput, rightPower);
+
+  }
+
+  public void forward(double power) {
     leftMaster.set(ControlMode.PercentOutput, power);
     rightMaster.set(ControlMode.PercentOutput, power);
   }
+
   public void rotate(double power) {
     leftMaster.set(ControlMode.PercentOutput, power);
     rightMaster.set(ControlMode.PercentOutput, -power);
   }
+
   public void stopMotor() {
     leftMaster.set(ControlMode.PercentOutput, 0);
     rightMaster.set(ControlMode.PercentOutput,0);
