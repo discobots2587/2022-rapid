@@ -33,17 +33,22 @@ import edu.wpi.first.wpilibj2.command.button.Trigger;
  * periodic methods (other than the scheduler calls).  Instead, the structure of the robot
  * (including subsystems, commands, and button mappings) should be declared here.
  */
-public class RobotContainer {
+public class RobotContainer 
+{
   private final DriveTrain driveTrain = new DriveTrain();
   private final IntakeRollers intakeRollers = new IntakeRollers();
   
   private final  XboxController controller = new XboxController(0);
 
+  private final Command m_simpleAuto =
+      new DriveDistance(
+          AutoConstants.kAutoDriveDistanceInches, AutoConstants.kAutoDriveSpeed, m_robotDrive);  
 
   /**
    * The container for the robot.  Contains subsystems, OI devices, and commands.
    */
-  public RobotContainer() {
+  public RobotContainer() 
+  {
     // Configure the button bindings
     configureButtonBindings();
 
@@ -66,7 +71,8 @@ public class RobotContainer {
    * edu.wpi.first.wpilibj.Joystick} or {@link XboxController}), and then passing it to a
    * {@link edu.wpi.first.wpilibj2.command.button.JoystickButton}.
    */
-  private void configureButtonBindings() {
+  private void configureButtonBindings() 
+  {
     new Trigger(() -> controller.getTriggerAxis(Hand.kLeft) > 0.75)
       .whileActiveContinuous(new RunCommand(() -> conveyor.spin(1), conveyor));
 
@@ -128,7 +134,7 @@ public class RobotContainer {
       .whileActiveContinuous(new SequentialCommandGroup(
         new InstantCommand(() -> intakeRollers.deploy(), intakeRollers),
         new WaitCommand(0.5)));
-}
+  }
 
 
   /**
@@ -136,7 +142,9 @@ public class RobotContainer {
    *
    * @return the command to run in autonomous
    */
-  public Command getAutonomousCommand() {
-    return auto;
+  public Command getAutonomousCommand() 
+  {
+    //return auto;
+    return m_simpleAuto;
   }
 }
