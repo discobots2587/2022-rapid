@@ -29,11 +29,19 @@ public class Conveyer {
 
   public void conveyerRun(XboxController controller, double power)
   {
-    if (controller.getRightBumperPressed())
+    if (controller.getRightStickButtonPressed())
     {
       index(power);
     }
-    if (controller.getRightBumperReleased())
+    if (controller.getRightStickButtonReleased())
+    {
+      stop();
+    }
+    if (controller.getLeftStickButtonPressed())
+    {
+      index(-power);
+    }
+    if (controller.getLeftStickButtonReleased())
     {
       stop();
     }

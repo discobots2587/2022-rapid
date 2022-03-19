@@ -63,17 +63,19 @@ public class IntakeRollers {
     if (controller.getRawButtonPressed(5)) {
       if (toggle) {
           // Current state is true so turn off
-          stop();
           toggle = false;
+          one.toggle();
+          zero.toggle();
       } else {
           // Current state is false so turn on
-          stop();
-          spin(power);
           toggle = true;
+          one.toggle();
+          zero.toggle();
+
       }
     }
 
-    if (controller.getRawButtonPressed(3)) {
+    if (controller.getRawButtonPressed(6)) {
       if (toggle) {
           // Current state is true so turn off
           stop();
