@@ -33,13 +33,16 @@ public class Climber {
 
   }
 
-  public void ClimberRun(XboxController controller, double power)
+  public void ClimberRun(XboxController controller, XboxController controller2, double power)
   {
-    if (controller.getYButtonPressed())
+    if (controller.getYButtonPressed() || controller2.getYButtonPressed())
     {
       index(-power);
+    } else if (controller.getXButtonPressed() || controller2.getXButtonPressed())
+    {
+      index(power);
     }
-    if (controller.getYButtonReleased())
+    else if (controller.getYButtonReleased() || controller2.getYButtonReleased())
     {
       stop();
     }
