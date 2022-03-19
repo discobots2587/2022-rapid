@@ -40,33 +40,22 @@ public class IntakeRollers {
 
   
 
-  public void intakeRun(XboxController controller, double power)
-  {
-    if (controller.getLeftBumperPressed())
-    {
-      spin(power);
-      one.toggle();
-      zero.toggle();
-      
-    }
-    if(controller.getLeftStickButtonPressed())
-    {
-      spin(-power);
-      one.toggle();
-      zero.toggle();
-    }
 
-  }
   public void intakeToggle(XboxController controller, double power)
   {
-    
+
+    if(controller.getRightTriggerAxis() > 0)
+    {
+      spin(power);
+    } 
+  
     if (controller.getRawButtonPressed(5)) {
       if (toggle) {
           // Current state is true so turn off
           toggle = false;
           one.toggle();
           zero.toggle();
-      } else {
+      } else  {
           // Current state is false so turn on
           toggle = true;
           one.toggle();
@@ -86,7 +75,11 @@ public class IntakeRollers {
           spin(-power);
           toggle = true;
       }
+    } else if(controller.getRightTriggerAxis() == 0 && toggle == false)
+    {
+      stop();
     }
+    
   }
   /**
    * Spins the rollers at a given power

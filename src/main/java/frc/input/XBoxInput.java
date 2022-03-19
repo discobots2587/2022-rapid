@@ -7,12 +7,16 @@ import edu.wpi.first.wpilibj.XboxController;
  */
 public class XBoxInput extends InputMethod {
   private XboxController controller;
+  private XboxController controller2;
   private final double JOYSTICK_DEAD_ZONE = 0.075;
 
   public XBoxInput() {
     // the joystick is registered as port #0
     controller = new XboxController(0);
+    controller2 = new XboxController(1);
+
   }
+
 
   @Override
   public double leftSidePower() {

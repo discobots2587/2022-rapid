@@ -32,6 +32,7 @@ public class Robot extends TimedRobot {
   private RobotContainer m_robotContainer;
   TalonSRX talon0 = new TalonSRX(0);
   private final XboxController m_stick = new XboxController(0);
+  private final XboxController m_stick2 = new XboxController(1);
   private final Timer m_timer = new Timer(); 
   private DriveTrain m_robotDrive = new DriveTrain();
   private IntakeRollers m_robotIntake = new IntakeRollers();
@@ -119,7 +120,7 @@ public class Robot extends TimedRobot {
     //m_robotDrive.tankDrive(-m_stick.getLeftY(), m_stick.getRightY());  // LDR revert to previous tested code
     m_robotIntake.intakeToggle(m_stick, IntakeRollersConstants.kIntakeSpeed);
     m_robotFlywheel.flyWheelToggle(m_stick, FlywheelConstants.kFlywheelLowSpeed, FlywheelConstants.kFlywheelHighSpeed);
-    m_robotConveyer.conveyerRun(m_stick, ConveyerConstants.kConveyerSpeed);
+    m_robotConveyer.conveyerRun(m_stick, m_stick2, ConveyerConstants.kConveyerSpeed);
     m_robotClimber.ClimberRun(m_stick, ClimberConstants.kClimberSpeed);
     m_robotIntake.moveIntake(m_stick);
     //m_robotDrive.arcadeDrive(m_stick.getRightX() , -m_stick.getLeftY() ); //tested, working fine

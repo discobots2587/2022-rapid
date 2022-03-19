@@ -27,32 +27,21 @@ public class Conveyer {
 
   }
 
-  public void conveyerRun(XboxController controller, double power)
+  public void conveyerRun(XboxController controller, XboxController controller2, double power)
   {
-    if (controller.getRightStickButtonPressed())
+    if (controller.getPOV() == 0 || controller2.getPOV() == 0)
     {
       index(power);
     }
-    if (controller.getRightStickButtonReleased())
-    {
-      stop();
-    }
-    if (controller.getLeftStickButtonPressed())
+    else if (controller.getPOV() == 180 || controller2.getPOV() == 180)
     {
       index(-power);
     }
-    if (controller.getLeftStickButtonReleased())
+    else if (controller.getPOV() == -1 || controller2.getPOV() == -1)
     {
       stop();
     }
-    /**if(controller.getYButtonPressed())
-    {
-      index(-power);
-    }
-    if (controller.getYButtonReleased())
-    {
-      stop();
-    }**/
+
   }
   /**
    * spins the conveyer at a given power
