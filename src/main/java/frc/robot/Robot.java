@@ -17,10 +17,12 @@ import edu.wpi.first.wpilibj2.command.button.JoystickButton;
 import frc.robot.subsystems.Conveyer;
 import frc.robot.subsystems.DriveTrain;
 import frc.robot.subsystems.Flywheel;
+import frc.robot.subsystems.Climber;
 import frc.robot.subsystems.IntakeRollers;
 import frc.robot.Constants.IntakeRollersConstants;
 import frc.robot.Constants.FlywheelConstants;
 import frc.robot.Constants.ConveyerConstants;
+import frc.robot.Constants.ClimberConstants;
 /**
  * The VM is configured to automatically run this class, and to call the functions corresponding to
  * each mode, as described in the TimedRobot documentation. If you change the name of this class or
@@ -36,6 +38,7 @@ public class Robot extends TimedRobot {
   private DriveTrain m_robotDrive = new DriveTrain();
   private IntakeRollers m_robotIntake = new IntakeRollers();
   private Conveyer m_robotConveyer = new Conveyer();
+  private Climber m_robotClimber = new Climber();
   private Flywheel m_robotFlywheel = new Flywheel();
   final JoystickButton leftBumperButton = new JoystickButton(m_stick, 9);
   /**
@@ -121,6 +124,7 @@ public class Robot extends TimedRobot {
     m_robotIntake.intakeToggle(m_stick, IntakeRollersConstants.kIntakeSpeed);
     m_robotFlywheel.flyWheelToggle(m_stick, FlywheelConstants.kFlywheelLowSpeed, FlywheelConstants.kFlywheelHighSpeed);
     m_robotConveyer.conveyerRun(m_stick, ConveyerConstants.kConveyerSpeed);
+    m_robotClimber.ClimberRun(m_stick, ClimberConstants.kClimberSpeed);
     m_robotIntake.moveIntake(m_stick);
     //m_robotDrive.arcadeDrive(m_stick.getRightX() , -m_stick.getLeftY() ); //tested, working fine
     m_robotDrive.arcadeCurvedDrive(m_stick.getRightX(), -m_stick.getLeftY());

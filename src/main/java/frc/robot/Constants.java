@@ -25,7 +25,7 @@ public final class Constants {
     }
 
     public static final class IntakeRollersConstants {
-        public static final int kRollersID = 0;
+        public static final int kRollersID = 3;
         public static final int kIntakeSpeed = 50;
         public static final int kdeployForwardChannel = 0;
         public static final int kdeployBackwardChannel = 1;
@@ -38,6 +38,13 @@ public final class Constants {
         public static final int kRightConveyerID = 40;
         public static final int kLeftConveyerID = 20;
         public static final int kConveyerSpeed = 50;
+    }
+
+    public static final class ClimberConstants
+    {
+        public static final int kRightClimberID = 4;
+        public static final int kLeftClimberID = 2;
+        public static final int kClimberSpeed = 10;
     }
 
     public static final class FlywheelConstants

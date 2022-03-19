@@ -37,14 +37,14 @@ public class Conveyer {
     {
       stop();
     }
-    if(controller.getYButtonPressed())
+    /**if(controller.getYButtonPressed())
     {
       index(-power);
     }
     if (controller.getYButtonReleased())
     {
       stop();
-    }
+    }**/
   }
   /**
    * spins the conveyer at a given power
