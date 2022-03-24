@@ -35,18 +35,26 @@ public class Climber {
 
   public void ClimberRun(XboxController controller, XboxController controller2, double power)
   {
-    if (controller.getYButtonPressed() || controller2.getYButtonPressed())
+    if (/*controller.getYButtonPressed() ||*/ controller2.getYButtonPressed())
     {
-      index(-power);
-    } else if (controller.getXButtonPressed() || controller2.getXButtonPressed())
+      longhook.toggle();
+      //index(-power);
+    } else if (/*controller.getXButtonPressed() ||*/ controller2.getXButtonPressed())
     {
-      index(power);
+      shorthook.toggle();
+      //index(power);
     }
-    else if (controller.getYButtonReleased() || controller2.getYButtonReleased())
+    /*else if (controller.getYButtonReleased() || controller2.getYButtonReleased())
     {
-      stop();
-    }
+      //stop();
+    }*/
+
   }
+
+  public void climberjoystick (XboxController controller2, double power) {
+    index(power/10);
+  }
+
   /**
    * spins the Climber at a given power
    * 

@@ -116,7 +116,6 @@ public class Robot extends TimedRobot {
   /** This function is called periodically during operator control. */
   @Override
   public void teleopPeriodic() { // works
-    
     //m_robotDrive.tankDrive(-m_stick.getLeftY(), m_stick.getRightY());  // LDR revert to previous tested code
     m_robotIntake.intakeToggle(m_stick, m_stick2, IntakeRollersConstants.kIntakeSpeed);
     m_robotFlywheel.flyWheelToggle(m_stick, FlywheelConstants.kFlywheelLowSpeed, FlywheelConstants.kFlywheelHighSpeed);
@@ -125,6 +124,7 @@ public class Robot extends TimedRobot {
     m_robotIntake.moveIntake(m_stick);
     //m_robotDrive.arcadeDrive(m_stick.getRightX() , -m_stick.getLeftY() ); //tested, working fine
     m_robotDrive.arcadeCurvedDrive(m_stick.getRightX(), -m_stick.getLeftY());
+    m_robotClimber.climberjoystick(m_stick2, m_stick2.getRightY());
     //m_robotDrive.tankCurvedDrive(-m_stick.getLeftY(), m_stick.getRightY());
   }
 
