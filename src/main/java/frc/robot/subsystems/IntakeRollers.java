@@ -38,43 +38,30 @@ public class IntakeRollers {
     pcmCompressor.enableDigital();
   }
 
-  public void intakeRun(XboxController controller, double power)
+  
+
+
+  public void intakeToggle(XboxController controller, XboxController controller2, double power)
   {
-    if (controller.getLeftBumperPressed())
-    {
-      spin(power);
-      
-    }
-    if (controller.getLeftBumperReleased())
-    {
-      stop();
-    }
-    if(controller.getXButtonPressed())
-    {
-      spin(-power);
-    }
-    if (controller.getXButtonReleased())
-    {
-      stop();
-    }
-  }
-  public void intakeToggle(XboxController controller, double power)
-  {
-    
-    if (controller.getRawButtonPressed(5)) {
+
+     
+  
+    if (controller.getRawButtonPressed(5) || controller2.getRawButtonPressed(5)) {
       if (toggle) {
           // Current state is true so turn off
-          stop();
           toggle = false;
-      } else {
+          one.toggle();
+          zero.toggle();
+      } else  {
           // Current state is false so turn on
-          stop();
-          spin(power);
           toggle = true;
+          one.toggle();
+          zero.toggle();
+
       }
     }
 
-    if (controller.getRawButtonPressed(3)) {
+    if (controller.getRawButtonPressed(6) || controller2.getRawButtonPressed(6)) {
       if (toggle) {
           // Current state is true so turn off
           stop();
@@ -85,7 +72,15 @@ public class IntakeRollers {
           spin(-power);
           toggle = true;
       }
+    } else if((controller.getRightTriggerAxis() == 0 && toggle == false) || (controller2.getRightTriggerAxis() == 0 && toggle == false))
+    {
+      stop();
     }
+    if(controller.getRightTriggerAxis() > 0 || controller2.getRightTriggerAxis() > 0)
+    {
+      spin(power);
+    }
+    
   }
   /**
    * Spins the rollers at a given power
@@ -125,4 +120,5 @@ public class IntakeRollers {
   // public void deploy() {
   //   deploy.set(!deploy.get());
   // }
+  
 }

@@ -2,16 +2,21 @@ package frc.robot.subsystems;
 
 
 import com.ctre.phoenix.motorcontrol.ControlMode;
+import edu.wpi.first.wpilibj.Solenoid;
 import com.ctre.phoenix.motorcontrol.NeutralMode;
 //import com.ctre.phoenix.motorcontrol.can.TalonSRX;
 import com.ctre.phoenix.motorcontrol.can.TalonFX;
 import edu.wpi.first.wpilibj.XboxController;
 import frc.robot.Constants.ClimberConstants;
 //import edu.wpi.first.wpilibj2.command.SubsystemBase;
+import edu.wpi.first.wpilibj.PneumaticsModuleType;
+
 
 public class Climber {
     private TalonFX Climber = new TalonFX(ClimberConstants.kRightClimberID);
     private TalonFX leftClimber = new TalonFX(ClimberConstants.kLeftClimberID);
+    private Solenoid longhook = new Solenoid(ClimberConstants.kPCMID, PneumaticsModuleType.CTREPCM, ClimberConstants.kdeployForwardChannel);
+    private Solenoid shorthook = new Solenoid(ClimberConstants.kPCMID, PneumaticsModuleType.CTREPCM, ClimberConstants.kdeployBackwardChannel);
   public static enum ClimberStates {
     OFF, IN, OUT
   }
@@ -28,17 +33,28 @@ public class Climber {
 
   }
 
-  public void ClimberRun(XboxController controller, double power)
+  public void ClimberRun(XboxController controller, XboxController controller2, double power)
   {
-    if (controller.getYButtonPressed())
+    if (/*controller.getYButtonPressed() ||*/ controller2.getYButtonPressed())
     {
-      index(-power);
-    }
-    if (controller.getYButtonReleased())
+      longhook.toggle();
+      //index(-power);
+    } else if (/*controller.getXButtonPressed() ||*/ controller2.getXButtonPressed())
     {
-      stop();
+      shorthook.toggle();
+      //index(power);
     }
+    /*else if (controller.getYButtonReleased() || controller2.getYButtonReleased())
+    {
+      //stop();
+    }*/
+
   }
+
+  public void climberjoystick (XboxController controller2, double power) {
+    index(power/10);
+  }
+
   /**
    * spins the Climber at a given power
    * 

@@ -1,6 +1,6 @@
 package frc.robot.subsystems;
 
-
+import edu.wpi.first.wpilibj.Timer;
 import edu.wpi.first.wpilibj.XboxController;
 import frc.robot.Constants.FlywheelConstants;
 import com.revrobotics.CANSparkMax;
@@ -14,6 +14,8 @@ public class Flywheel {
   public static enum FlywheelStates {
     OFF, IN, OUT
   }
+
+  Timer timer = new Timer();
 
   private FlywheelStates state = FlywheelStates.OFF;
 
