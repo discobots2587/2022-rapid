@@ -17,6 +17,7 @@ import frc.robot.subsystems.DriveTrain;
 import frc.robot.subsystems.Flywheel;
 import frc.robot.subsystems.Climber;
 import frc.robot.subsystems.IntakeRollers;
+import frc.robot.subsystems.IntakeRollers.IntakeRollersStates;
 import frc.robot.Constants.IntakeRollersConstants;
 import frc.robot.Constants.FlywheelConstants;
 import frc.robot.Constants.ConveyerConstants;
@@ -93,10 +94,54 @@ public class Robot extends TimedRobot {
   /** This function is called periodically during autonomous. */
   @Override
   public void autonomousPeriodic() {
-    if(m_timer.get() < 2.0) {  //error with get timer
+
+    if((m_timer.get() < 5.0) || (m_timer.get() > 10 && m_timer.get() < 15))
+    {
+      m_robotFlywheel.shoot(FlywheelConstants.kFlywheelLowSpeed);
+    }
+    else
+    {
+      m_robotFlywheel.stop();
+    }
+    
+    if((m_timer.get() > 2.0 && m_timer.get() < 5.0) || (m_timer.get() > 12.0 && m_timer.get() < 15.0))
+    {
       m_robotConveyer.index(ConveyerConstants.kConveyerSpeed);
-    } else {
-      m_robotConveyer.stop(); //stop robot
+    }
+    else
+    {
+      m_robotConveyer.stop();
+    }
+    
+    if(m_timer.get() > 6.0 && m_timer.get() < 9.0)
+    {
+      m_robotDrive.forward(0.5);
+    }
+    else if(m_timer.get() > 9.0 && m_timer.get() < 12.0)
+    {
+      m_robotDrive.forward(-0.5);
+    }
+    else
+    {
+      m_robotDrive.stopMotor();
+    }
+    
+    if(m_timer.get() > 6.0 && m_timer.get() < 12.0)
+    {
+      m_robotIntake.spin(IntakeRollersConstants.kIntakeSpeed);
+    }
+    else
+    {
+      m_robotIntake.stop();
+    }
+
+    if(m_timer.get() > 6.0)
+    {
+      m_robotIntake.setState(IntakeRollersStates.OUT);
+    }
+
+    if(m_timer.get() > 12.0)
+    {
       m_timer.stop();
     }
   }
