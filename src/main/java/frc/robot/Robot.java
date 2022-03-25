@@ -11,6 +11,7 @@ import edu.wpi.first.wpilibj.Timer;
 import com.ctre.phoenix.motorcontrol.can.TalonSRX;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.CommandScheduler;
+import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
 import edu.wpi.first.wpilibj2.command.button.JoystickButton;
 import frc.robot.subsystems.Conveyer;
 import frc.robot.subsystems.DriveTrain;
@@ -19,6 +20,8 @@ import frc.robot.subsystems.Climber;
 import frc.robot.subsystems.IntakeRollers;
 import frc.robot.subsystems.IntakeRollers.IntakeRollersStates;
 import frc.robot.Constants.IntakeRollersConstants;
+import frc.robot.commands.Autonomous;
+import frc.robot.commands.RunDrive;
 import frc.robot.Constants.FlywheelConstants;
 import frc.robot.Constants.ConveyerConstants;
 import frc.robot.Constants.ClimberConstants;
@@ -30,6 +33,7 @@ import frc.robot.Constants.ClimberConstants;
  */
 public class Robot extends TimedRobot {
   private Command m_autonomousCommand;
+  private RunDrive rdrive;
   private RobotContainer m_robotContainer;
   TalonSRX talon0 = new TalonSRX(0);
   private final XboxController m_stick = new XboxController(0);
@@ -40,6 +44,7 @@ public class Robot extends TimedRobot {
   private Conveyer m_robotConveyer = new Conveyer();
   private Climber m_robotClimber = new Climber();
   private Flywheel m_robotFlywheel = new Flywheel();
+  private SequentialCommandGroup seq = new SequentialCommandGroup(new RunDrive(m_robotDrive, 5.0));
   final JoystickButton leftBumperButton = new JoystickButton(m_stick, 9);
   /**
    * This funct ion is run when the robot is first started up and should be used for any
@@ -80,21 +85,19 @@ public class Robot extends TimedRobot {
   /** This autonomous runs the autonomous command selected by your {@link RobotContainer} class. */
   // @Override
   public void autonomousInit() {
-      m_timer.reset();
-      m_timer.start();
       //m_autonomousCommand = m_robotContainer.m_simpleAuto
       m_autonomousCommand = m_robotContainer.getAutonomousCommand(); // this has an error, getAutonomousCommand doesnt exist -Andy 
     // schedule the autonomous command (example)
    
-      if (m_autonomousCommand != null) {
-        m_autonomousCommand.schedule();
+      if (seq != null) {
+        seq.schedule();
       }
    }
 
   /** This function is called periodically during autonomous. */
   @Override
   public void autonomousPeriodic() {
-
+    seq.execute();
     /*if(m_timer.get() < 5.0)
     {
       m_robotConveyer.index(ConveyerConstants.kConveyerSpeed);
@@ -129,38 +132,58 @@ public class Robot extends TimedRobot {
     {
       m_robotConveyer.stop();
     }
+
+    seq.execute();
     
-    if(m_timer.get() > 6.0 && m_timer.get() < 9.0)
-    {
-      m_robotDrive.forward(0.5);
-    }
-    else if(m_timer.get() > 9.0 && m_timer.get() < 12.0)
-    {
-      m_robotDrive.forward(-0.5);
-    }
-    else
-    {
-      m_robotDrive.stopMotor();
-    }
+    // if((m_timer.get() > 2.0 && m_timer.get() < 5.0) || (m_timer.get() > 12.0 && m_timer.get() < 15.0))
+    // {
+    //   m_robotConveyer.index(ConveyerConstants.kConveyerSpeed);
+    // }
+    // else
+    //   m_robotConveyer.stop();
+    // }
     
-    if(m_timer.get() > 6.0 && m_timer.get() < 12.0)
-    {
-      m_robotIntake.spin(IntakeRollersConstants.kIntakeSpeed);
-    }
-    else
-    {
-      m_robotIntake.stop();
-    }
+    // if(m_timer.get() > 6.0 && m_timer.get() < 9.0)
+    // {
+    //   m_robotDrive.forward(0.5);
+    // }
+    // else if(m_timer.get() > 9.0 && m_timer.get() < 12.0)
+    // {
+    //   m_robotDrive.forward(-0.5);
+    // }
+    // else
+    // {
+    //   m_robotDrive.stopMotor();
+    // }
+    
+    // if(m_timer.get() > 6.0 && m_timer.get() < 12.0)
+    // {
+    //   m_robotIntake.spin(IntakeRollersConstants.kIntakeSpeed);
+    // }
+    // else
+    // {
+    //   m_robotIntake.stop();
+    // }
+
+    // if(m_timer.get() > 6.0)
+    // {
+    //   m_robotIntake.setState(IntakeRollersStates.OUT);
+    // }
+
+    // if(m_timer.get() > 12.0)
+    // {
+    //   m_timer.stop();
+    // }
 
     if(m_timer.get() > 6.0)
     {
       m_robotIntake.IntakeDown();
     }*/
 
-    if(m_timer.get() > 15.0)
-    {
-      m_timer.stop();
-    }
+    // if(m_timer.get() > 15.0)
+    // {
+    //   m_timer.stop();
+    // }
   }
 
   @Override
@@ -169,8 +192,8 @@ public class Robot extends TimedRobot {
     // teleop starts running. If you want the autonomous to
     // continue until interrupted by another command, remove
     // this line or comment it out.
-    if (m_autonomousCommand != null) {
-      m_autonomousCommand.cancel();
+    if (seq != null) {
+      seq.cancel();
     }
   }
 

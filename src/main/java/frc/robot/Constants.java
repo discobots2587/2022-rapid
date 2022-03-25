@@ -46,7 +46,7 @@ public final class Constants {
         public static final int kdeployBackwardChannel = 2;
         public static final int kRightClimberID = 4;
         public static final int kLeftClimberID = 2;
-        public static final int kClimberSpeed = 30;
+        public static final int kClimberSpeed = 80;
         public static final int kPCMID = 9;
     }
 

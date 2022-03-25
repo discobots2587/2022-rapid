@@ -9,6 +9,8 @@ package frc.robot.subsystems;
 
 import com.ctre.phoenix.motorcontrol.can.TalonSRX;
 import com.ctre.phoenix.motorcontrol.ControlMode;
+
+import edu.wpi.first.wpilibj.Timer;
 //import edu.wpi.first.wpilibj.drive.DifferentialDrive;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants.DriveTrainConstants;
@@ -116,6 +118,18 @@ public class DriveTrain extends SubsystemBase {
   public void forward(double power) {
     leftMaster.set(ControlMode.PercentOutput, power);
     rightMaster.set(ControlMode.PercentOutput, power);
+  }
+
+  public void autoforward(double power) {
+    Timer t = new Timer();
+    t.reset();
+    t.start();
+    forward(power);
+    if (t.get() >= 5.0)
+    {
+      stopMotor();
+    }
+    
   }
 
   public void rotate(double power) {
