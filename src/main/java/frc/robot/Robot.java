@@ -99,6 +99,7 @@ public class Robot extends TimedRobot {
   @Override
   public void autonomousPeriodic() {
 <<<<<<< HEAD
+<<<<<<< HEAD
     seq.execute();
     /*if(m_timer.get() < 5.0)
     {
@@ -114,6 +115,10 @@ public class Robot extends TimedRobot {
       m_robotFlywheel.shoot(FlywheelConstants.kFlywheelLowSpeed);
     }
     else if (m_timer.get() > 10 && m_timer.get() < 15)
+=======
+
+    if((m_timer.get() < 5.0) || (m_timer.get() > 10 && m_timer.get() < 15))
+>>>>>>> parent of ce37c94 (Driver Control Updates)
 =======
 
     if((m_timer.get() < 5.0) || (m_timer.get() > 10 && m_timer.get() < 15))
@@ -183,11 +188,14 @@ public class Robot extends TimedRobot {
     }
 
 <<<<<<< HEAD
+<<<<<<< HEAD
     // if(m_timer.get() > 15.0)
     // {
     //   m_timer.stop();
     // }
 =======
+=======
+>>>>>>> parent of ce37c94 (Driver Control Updates)
     if(m_timer.get() > 12.0)
     {
       m_timer.stop();

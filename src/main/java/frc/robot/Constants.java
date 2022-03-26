@@ -47,7 +47,11 @@ public final class Constants {
         public static final int kRightClimberID = 4;
         public static final int kLeftClimberID = 2;
 <<<<<<< HEAD
+<<<<<<< HEAD
         public static final int kClimberSpeed = 80;
+=======
+        public static final int kClimberSpeed = 10;
+>>>>>>> parent of ce37c94 (Driver Control Updates)
 =======
         public static final int kClimberSpeed = 10;
 >>>>>>> parent of ce37c94 (Driver Control Updates)
