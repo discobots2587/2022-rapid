@@ -87,6 +87,7 @@ public class Robot extends TimedRobot {
   public void autonomousInit() {
       //m_autonomousCommand = m_robotContainer.m_simpleAuto
       m_autonomousCommand = m_robotContainer.getAutonomousCommand(); // this has an error, getAutonomousCommand doesnt exist -Andy 
+       
     // schedule the autonomous command (example)
    
       if (seq != null) {
@@ -97,6 +98,7 @@ public class Robot extends TimedRobot {
   /** This function is called periodically during autonomous. */
   @Override
   public void autonomousPeriodic() {
+<<<<<<< HEAD
     seq.execute();
     /*if(m_timer.get() < 5.0)
     {
@@ -112,6 +114,10 @@ public class Robot extends TimedRobot {
       m_robotFlywheel.shoot(FlywheelConstants.kFlywheelLowSpeed);
     }
     else if (m_timer.get() > 10 && m_timer.get() < 15)
+=======
+
+    if((m_timer.get() < 5.0) || (m_timer.get() > 10 && m_timer.get() < 15))
+>>>>>>> parent of ce37c94 (Driver Control Updates)
     {
       m_robotFlywheel.shoot(FlywheelConstants.kFlywheelLowSpeed);
     }
@@ -120,11 +126,7 @@ public class Robot extends TimedRobot {
       m_robotFlywheel.stop();
     }
     
-    if(m_timer.get() > 2.0 && m_timer.get() < 5.0)
-    {
-      m_robotConveyer.index(ConveyerConstants.kConveyerSpeed);
-    }
-    else if (m_timer.get() > 12.0 && m_timer.get() < 15.0)
+    if((m_timer.get() > 2.0 && m_timer.get() < 5.0) || (m_timer.get() > 12.0 && m_timer.get() < 15.0))
     {
       m_robotConveyer.index(ConveyerConstants.kConveyerSpeed);
     }
@@ -177,13 +179,20 @@ public class Robot extends TimedRobot {
 
     if(m_timer.get() > 6.0)
     {
-      m_robotIntake.IntakeDown();
-    }*/
+      m_robotIntake.setState(IntakeRollersStates.OUT);
+    }
 
+<<<<<<< HEAD
     // if(m_timer.get() > 15.0)
     // {
     //   m_timer.stop();
     // }
+=======
+    if(m_timer.get() > 12.0)
+    {
+      m_timer.stop();
+    }
+>>>>>>> parent of ce37c94 (Driver Control Updates)
   }
 
   @Override
@@ -202,14 +211,13 @@ public class Robot extends TimedRobot {
   public void teleopPeriodic() { // works
     //m_robotDrive.tankDrive(-m_stick.getLeftY(), m_stick.getRightY());  // LDR revert to previous tested code
     m_robotIntake.intakeToggle(m_stick, m_stick2, IntakeRollersConstants.kIntakeSpeed);
-    //m_robotIntake.intakeSpin(m_stick, m_stick2, IntakeRollersConstants.kIntakeSpeed);
-    m_robotFlywheel.flyWheelToggle(m_stick, m_stick2, FlywheelConstants.kFlywheelLowSpeed, FlywheelConstants.kFlywheelHighSpeed);
+    m_robotFlywheel.flyWheelToggle(m_stick, FlywheelConstants.kFlywheelLowSpeed, FlywheelConstants.kFlywheelHighSpeed);
     m_robotConveyer.conveyerRun(m_stick, m_stick2, ConveyerConstants.kConveyerSpeed);
     m_robotClimber.ClimberRun(m_stick, m_stick2, ClimberConstants.kClimberSpeed);
-    //m_robotIntake.moveIntake(m_stick);
+    m_robotIntake.moveIntake(m_stick);
     //m_robotDrive.arcadeDrive(m_stick.getRightX() , -m_stick.getLeftY() ); //tested, working fine
-    m_robotDrive.arcadeCurvedDrive(m_stick.getRightX()*0.5, -m_stick.getLeftY()*0.8);
-    m_robotClimber.climberjoystick(m_stick2, m_stick2.getLeftY());
+    m_robotDrive.arcadeCurvedDrive(m_stick.getRightX(), -m_stick.getLeftY());
+    m_robotClimber.climberjoystick(m_stick2, m_stick2.getRightY());
     //m_robotDrive.tankCurvedDrive(-m_stick.getLeftY(), m_stick.getRightY());
   }
 

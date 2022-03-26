@@ -41,19 +41,6 @@ public class Conveyer {
     {
       stop();
     }
-    
-    /*if(controller.getBButtonPressed())
-    {
-      index(power);
-    }
-    else if (controller2.getXButtonPressed())
-    {
-      index(-power);
-    }
-    else
-    {
-      stop();
-    }*/
 
   }
   /**

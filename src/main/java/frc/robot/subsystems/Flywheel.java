@@ -50,10 +50,10 @@ public class Flywheel {
     }
   }
 
-  public void flyWheelToggle(XboxController controller1, XboxController controller2, double lowPower, double highPower)
+  public void flyWheelToggle(XboxController controller, double lowPower, double highPower)
   {
     
-    if (controller1.getAButtonPressed() || controller2.getLeftBumperPressed()) {
+    if (controller.getRawButtonPressed(1)) {
       if (toggle) {
           // Current state is true so turn off
           stop();
@@ -66,7 +66,7 @@ public class Flywheel {
       }
     }
 
-    if (controller1.getYButtonPressed()) {
+    if (controller.getRawButtonPressed(2)) {
       if (toggle) {
           // Current state is true so turn off
           stop();
