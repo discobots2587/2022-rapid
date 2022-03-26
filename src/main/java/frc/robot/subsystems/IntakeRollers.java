@@ -59,7 +59,7 @@ public class IntakeRollers {
       }
     }
 
-    if (controller.getRightBumperPressed() || controller2.getRightBumperPressed()) {
+    if (controller.getRightBumperPressed()) {
       if (toggle) {
           // Current state is true so turn off
           stop();

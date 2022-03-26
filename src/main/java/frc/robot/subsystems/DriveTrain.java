@@ -115,12 +115,12 @@ public class DriveTrain extends SubsystemBase {
 
   public void forward(double power) {
     leftMaster.set(ControlMode.PercentOutput, power);
-    rightMaster.set(ControlMode.PercentOutput, power);
+    rightMaster.set(ControlMode.PercentOutput, -power);
   }
 
   public void rotate(double power) {
     leftMaster.set(ControlMode.PercentOutput, power);
-    rightMaster.set(ControlMode.PercentOutput, -power);
+    rightMaster.set(ControlMode.PercentOutput, power);
   }
 
   public void stopMotor() {

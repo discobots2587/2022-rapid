@@ -34,13 +34,15 @@ public class Robot extends TimedRobot {
   TalonSRX talon0 = new TalonSRX(0);
   private final XboxController m_stick = new XboxController(0);
   private final XboxController m_stick2 = new XboxController(1);
-  private final Timer m_timer = new Timer(); 
+  //private final Timer m_timer = new Timer(); 
   private DriveTrain m_robotDrive = new DriveTrain();
   private IntakeRollers m_robotIntake = new IntakeRollers();
   private Conveyer m_robotConveyer = new Conveyer();
   private Climber m_robotClimber = new Climber();
   private Flywheel m_robotFlywheel = new Flywheel();
   final JoystickButton leftBumperButton = new JoystickButton(m_stick, 9);
+  private double autoStart = 0;
+  private double autoTimeElapsed = 0;
   /**
    * This funct ion is run when the robot is first started up and should be used for any
    * initialization code.
@@ -67,7 +69,8 @@ public class Robot extends TimedRobot {
     // and running subsystem periodic() methods.  This must be called from the robot's periodic
     // block in order for anything in the Command-based framework to work.
     CommandScheduler.getInstance().run();
-    teleopPeriodic();
+    // teleopPeriodic();
+    // autonomousPeriodic();
   }
   @Override
   public void disabledInit() {}
@@ -80,35 +83,36 @@ public class Robot extends TimedRobot {
   /** This autonomous runs the autonomous command selected by your {@link RobotContainer} class. */
   // @Override
   public void autonomousInit() {
-      m_timer.reset();
-      m_timer.start();
-      //m_autonomousCommand = m_robotContainer.m_simpleAuto
-      m_autonomousCommand = m_robotContainer.getAutonomousCommand(); // this has an error, getAutonomousCommand doesnt exist -Andy 
+    autoStart = Timer.getFPGATimestamp();    
+    m_autonomousCommand = m_robotContainer.getAutonomousCommand(); // this has an error, getAutonomousCommand doesnt exist -Andy 
     // schedule the autonomous command (example)
    
-      if (m_autonomousCommand != null) {
-        m_autonomousCommand.schedule();
+    if (m_autonomousCommand != null) {
+      m_autonomousCommand.schedule();
       }
    }
 
   /** This function is called periodically during autonomous. */
   @Override
   public void autonomousPeriodic() {
-
-    /*if(m_timer.get() < 5.0)
+    autoTimeElapsed = Timer.getFPGATimestamp() - autoStart;
+    
+    /*if(autoTimeElapsed < 5.0)
     {
-      m_robotConveyer.index(ConveyerConstants.kConveyerSpeed);
+      m_robotDrive.arcadeCurvedDrive(5, 0);
+      System.out.println(autoTimeElapsed);
     }
     else
     {
-      m_robotConveyer.stop();
+      //m_robotDrive.stopMotor();
+
     }*/
-    //m_robotDrive.forward(0.5);
-    /*if(m_timer.get() < 5.0)  
+  
+    if(autoTimeElapsed < 5.0)  
     {
       m_robotFlywheel.shoot(FlywheelConstants.kFlywheelLowSpeed);
     }
-    else if (m_timer.get() > 10 && m_timer.get() < 15)
+    else if (autoTimeElapsed > 10 && autoTimeElapsed < 15)
     {
       m_robotFlywheel.shoot(FlywheelConstants.kFlywheelLowSpeed);
     }
@@ -117,11 +121,11 @@ public class Robot extends TimedRobot {
       m_robotFlywheel.stop();
     }
     
-    if(m_timer.get() > 2.0 && m_timer.get() < 5.0)
+    if(autoTimeElapsed > 2.0 && autoTimeElapsed < 5.0)
     {
       m_robotConveyer.index(ConveyerConstants.kConveyerSpeed);
     }
-    else if (m_timer.get() > 12.0 && m_timer.get() < 15.0)
+    else if (autoTimeElapsed > 12.0 && autoTimeElapsed < 15.0)
     {
       m_robotConveyer.index(ConveyerConstants.kConveyerSpeed);
     }
@@ -130,11 +134,11 @@ public class Robot extends TimedRobot {
       m_robotConveyer.stop();
     }
     
-    if(m_timer.get() > 6.0 && m_timer.get() < 9.0)
+    if(autoTimeElapsed > 6.0 && autoTimeElapsed < 9.0)
     {
       m_robotDrive.forward(0.5);
     }
-    else if(m_timer.get() > 9.0 && m_timer.get() < 12.0)
+    else if(autoTimeElapsed > 9.0 && autoTimeElapsed < 12.0)
     {
       m_robotDrive.forward(-0.5);
     }
@@ -143,7 +147,7 @@ public class Robot extends TimedRobot {
       m_robotDrive.stopMotor();
     }
     
-    if(m_timer.get() > 6.0 && m_timer.get() < 12.0)
+    if(autoTimeElapsed > 6.0 && autoTimeElapsed < 12.0)
     {
       m_robotIntake.spin(IntakeRollersConstants.kIntakeSpeed);
     }
@@ -152,15 +156,11 @@ public class Robot extends TimedRobot {
       m_robotIntake.stop();
     }
 
-    if(m_timer.get() > 6.0)
+    if(autoTimeElapsed > 6.0)
     {
       m_robotIntake.IntakeDown();
-    }*/
-
-    if(m_timer.get() > 15.0)
-    {
-      m_timer.stop();
     }
+
   }
 
   @Override
