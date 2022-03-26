@@ -46,15 +46,7 @@ public final class Constants {
         public static final int kdeployBackwardChannel = 2;
         public static final int kRightClimberID = 4;
         public static final int kLeftClimberID = 2;
-<<<<<<< HEAD
-<<<<<<< HEAD
-        public static final int kClimberSpeed = 80;
-=======
-        public static final int kClimberSpeed = 10;
->>>>>>> parent of ce37c94 (Driver Control Updates)
-=======
-        public static final int kClimberSpeed = 10;
->>>>>>> parent of ce37c94 (Driver Control Updates)
+        public static final int kClimberSpeed = 30;
         public static final int kPCMID = 9;
     }
 
@@ -62,7 +54,7 @@ public final class Constants {
     {
         public static final int kLeftFlywheelID = 50;
         public static final int kRightFlywheelID = 51;
-        public static final double kFlywheelLowSpeed = 0.25; // Range -1. to 1.
+        public static final double kFlywheelLowSpeed = 0.3; // Range -1. to 1.
         public static final double kFlywheelHighSpeed = 0.5; 
     }
 

@@ -44,9 +44,7 @@ public class IntakeRollers {
   public void intakeToggle(XboxController controller, XboxController controller2, double power)
   {
 
-     
-  
-    if (controller.getRawButtonPressed(5) || controller2.getRawButtonPressed(5)) {
+    if (controller.getLeftBumperPressed()) {
       if (toggle) {
           // Current state is true so turn off
           toggle = false;
@@ -61,7 +59,7 @@ public class IntakeRollers {
       }
     }
 
-    if (controller.getRawButtonPressed(6) || controller2.getRawButtonPressed(6)) {
+    if (controller.getRightBumperPressed() || controller2.getRightBumperPressed()) {
       if (toggle) {
           // Current state is true so turn off
           stop();
@@ -76,10 +74,7 @@ public class IntakeRollers {
     {
       stop();
     }
-    if(controller.getRightTriggerAxis() > 0 || controller2.getRightTriggerAxis() > 0)
-    {
-      spin(power);
-    }
+    
     
   }
   /**
@@ -91,9 +86,21 @@ public class IntakeRollers {
     rollers.set(ControlMode.PercentOutput, power);
   }
 
+  public void intakeSpin(XboxController controller, XboxController controller2, double power)
+  {
+    if(controller.getRightTriggerAxis() > 0 || controller2.getRightTriggerAxis() > 0)
+    {
+      spin(power);
+    }
+    else
+    {
+      stop();
+    }
+  }
+
   public void moveIntake(XboxController controller)
   {
-    if (controller.getStartButtonPressed())
+    if (controller.getLeftBumperPressed())
     {
       one.toggle();
       zero.toggle();
@@ -101,6 +108,18 @@ public class IntakeRollers {
     }
   }
   
+  public void IntakeDown()
+  {
+    one.set(false);
+    zero.set(false);
+  }
+
+  public void IntakeUp()
+  {
+    one.set(true);
+    zero.set(false);
+  }
+
   /**
    * Stop the rollers
    */
