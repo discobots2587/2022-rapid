@@ -65,7 +65,6 @@ public class Flywheel {
           toggle = true;
       }
     }
-
     if (controller1.getYButtonPressed() || controller2.getLeftBumperPressed()) {
       if (toggle) {
           // Current state is true so turn off

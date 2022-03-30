@@ -43,6 +43,7 @@ public class Robot extends TimedRobot {
   final JoystickButton leftBumperButton = new JoystickButton(m_stick, 9);
   private double autoStart = 0;
   private double autoTimeElapsed = 0;
+  private boolean autoToggle = false;
   /**
    * This funct ion is run when the robot is first started up and should be used for any
    * initialization code.
@@ -69,8 +70,7 @@ public class Robot extends TimedRobot {
     // and running subsystem periodic() methods.  This must be called from the robot's periodic
     // block in order for anything in the Command-based framework to work.
     CommandScheduler.getInstance().run();
-    // teleopPeriodic();
-    // autonomousPeriodic();
+
   }
   @Override
   public void disabledInit() {}
@@ -97,24 +97,14 @@ public class Robot extends TimedRobot {
   public void autonomousPeriodic() {
     autoTimeElapsed = Timer.getFPGATimestamp() - autoStart;
     
-    /*if(autoTimeElapsed < 5.0)
-    {
-      m_robotDrive.arcadeCurvedDrive(5, 0);
-      System.out.println(autoTimeElapsed);
-    }
-    else
-    {
-      //m_robotDrive.stopMotor();
-
-    }*/
   
     if(autoTimeElapsed < 5.0)  
     {
-      m_robotFlywheel.shoot(FlywheelConstants.kFlywheelLowSpeed);
+      m_robotFlywheel.shoot(FlywheelConstants.kFlywheelHighSpeed);
     }
     else if (autoTimeElapsed > 10 && autoTimeElapsed < 15)
     {
-      m_robotFlywheel.shoot(FlywheelConstants.kFlywheelLowSpeed);
+      m_robotFlywheel.shoot(FlywheelConstants.kFlywheelHighSpeed);
     }
     else
     {
@@ -134,11 +124,11 @@ public class Robot extends TimedRobot {
       m_robotConveyer.stop();
     }
     
-    if(autoTimeElapsed > 6.0 && autoTimeElapsed < 9.0)
+    if(autoTimeElapsed > 6.0 && autoTimeElapsed < 7.7)
     {
       m_robotDrive.forward(0.5);
     }
-    else if(autoTimeElapsed > 9.0 && autoTimeElapsed < 12.0)
+    else if(autoTimeElapsed > 9.0 && autoTimeElapsed < 10.7)
     {
       m_robotDrive.forward(-0.5);
     }
@@ -147,7 +137,7 @@ public class Robot extends TimedRobot {
       m_robotDrive.stopMotor();
     }
     
-    if(autoTimeElapsed > 6.0 && autoTimeElapsed < 12.0)
+    if(autoTimeElapsed > 6.0 && autoTimeElapsed < 13.0)
     {
       m_robotIntake.spin(IntakeRollersConstants.kIntakeSpeed);
     }
@@ -156,9 +146,14 @@ public class Robot extends TimedRobot {
       m_robotIntake.stop();
     }
 
-    if(autoTimeElapsed > 6.0)
+    if(autoTimeElapsed > 5.0)
     {
-      m_robotIntake.IntakeDown();
+      if (autoToggle == false)
+      {
+        System.out.println(autoTimeElapsed);
+        m_robotIntake.moveIntake();
+        autoToggle = true;
+      }
     }
 
   }
@@ -183,9 +178,7 @@ public class Robot extends TimedRobot {
     m_robotFlywheel.flyWheelToggle(m_stick, m_stick2, FlywheelConstants.kFlywheelLowSpeed, FlywheelConstants.kFlywheelHighSpeed);
     m_robotConveyer.conveyerRun(m_stick, m_stick2, ConveyerConstants.kConveyerSpeed);
     m_robotClimber.ClimberRun(m_stick, m_stick2, ClimberConstants.kClimberSpeed);
-    //m_robotIntake.moveIntake(m_stick);
-    //m_robotDrive.arcadeDrive(m_stick.getRightX() , -m_stick.getLeftY() ); //tested, working fine
-    m_robotDrive.arcadeCurvedDrive(m_stick.getRightX()*0.5, -m_stick.getLeftY()*0.8);
+    m_robotDrive.arcadeCurvedDrive(m_stick.getRightX()*0.65, -m_stick.getLeftY());
     m_robotClimber.climberjoystick(m_stick2, m_stick2.getLeftY());
     //m_robotDrive.tankCurvedDrive(-m_stick.getLeftY(), m_stick.getRightY());
   }

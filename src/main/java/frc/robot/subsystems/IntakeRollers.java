@@ -98,26 +98,10 @@ public class IntakeRollers {
     }
   }
 
-  public void moveIntake(XboxController controller)
+  public void moveIntake()
   {
-    if (controller.getLeftBumperPressed())
-    {
       one.toggle();
       zero.toggle();
-
-    }
-  }
-  
-  public void IntakeDown()
-  {
-    one.set(false);
-    zero.set(false);
-  }
-
-  public void IntakeUp()
-  {
-    one.set(true);
-    zero.set(false);
   }
 
   /**
