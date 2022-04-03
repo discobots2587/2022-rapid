@@ -17,7 +17,7 @@ import frc.robot.subsystems.DriveTrain;
 import frc.robot.subsystems.Flywheel;
 import frc.robot.subsystems.Climber;
 import frc.robot.subsystems.IntakeRollers;
-import frc.robot.subsystems.IntakeRollers.IntakeRollersStates;
+//import frc.robot.subsystems.IntakeRollers.IntakeRollersStates;
 import frc.robot.Constants.IntakeRollersConstants;
 import frc.robot.Constants.FlywheelConstants;
 import frc.robot.Constants.ConveyerConstants;
@@ -28,13 +28,13 @@ import frc.robot.Constants.ClimberConstants;
  * the package after creating this project, you must also update the build.gradle file in the
  * project.
  */
-public class Robot extends TimedRobot {
+public class Robot extends TimedRobot 
+{
   private Command m_autonomousCommand;
   private RobotContainer m_robotContainer;
   TalonSRX talon0 = new TalonSRX(0);
   private final XboxController m_stick = new XboxController(0);
   private final XboxController m_stick2 = new XboxController(1);
-  //private final Timer m_timer = new Timer(); 
   private DriveTrain m_robotDrive = new DriveTrain();
   private IntakeRollers m_robotIntake = new IntakeRollers();
   private Conveyer m_robotConveyer = new Conveyer();
@@ -49,7 +49,8 @@ public class Robot extends TimedRobot {
    * initialization code.
    */
   @Override
-  public void robotInit() {
+  public void robotInit() 
+  {
     // Instantiate our RobotContainer.  This will perform all our button bindings, and put our
     // autonomous chooser on the dashboard.
     m_robotContainer = new RobotContainer();
@@ -64,7 +65,8 @@ public class Robot extends TimedRobot {
    * SmartDashboard integrated updating.
    */
   @Override
-  public void robotPeriodic() {
+  public void robotPeriodic() 
+  {
     // Runs the Scheduler.  This is responsible for polling buttons, adding newly-scheduled
     // commands, running already-scheduled commands, removing finished or interrupted commands,
     // and running subsystem periodic() methods.  This must be called from the robot's periodic
@@ -76,27 +78,30 @@ public class Robot extends TimedRobot {
   public void disabledInit() {}
 
   @Override
-  public void disabledPeriodic() {
+  public void disabledPeriodic() 
+  {
     
   }
 
   /** This autonomous runs the autonomous command selected by your {@link RobotContainer} class. */
   // @Override
-  public void autonomousInit() {
+  public void autonomousInit() 
+  {
     autoStart = Timer.getFPGATimestamp();    
     m_autonomousCommand = m_robotContainer.getAutonomousCommand(); // this has an error, getAutonomousCommand doesnt exist -Andy 
     // schedule the autonomous command (example)
    
-    if (m_autonomousCommand != null) {
+    if (m_autonomousCommand != null) 
+    {
       m_autonomousCommand.schedule();
-      }
+    }
    }
 
   /** This function is called periodically during autonomous. */
   @Override
-  public void autonomousPeriodic() {
+  public void autonomousPeriodic() 
+  {
     autoTimeElapsed = Timer.getFPGATimestamp() - autoStart;
-    
   
     if(autoTimeElapsed < 5.0)  
     {
@@ -139,14 +144,14 @@ public class Robot extends TimedRobot {
     
     if(autoTimeElapsed > 6.0 && autoTimeElapsed < 13.0)
     {
-      m_robotIntake.spin(IntakeRollersConstants.kIntakeSpeed);
+      m_robotIntake.spin(-IntakeRollersConstants.kIntakeSpeed);
     }
     else
     {
       m_robotIntake.stop();
     }
 
-    if(autoTimeElapsed > 5.0)
+    if(autoTimeElapsed > 1.0)
     {
       if (autoToggle == false)
       {
@@ -159,28 +164,29 @@ public class Robot extends TimedRobot {
   }
 
   @Override
-  public void teleopInit() {
+  public void teleopInit() 
+  {
     // This makes sure that the autonomous stops running when
     // teleop starts running. If you want the autonomous to
     // continue until interrupted by another command, remove
     // this line or comment it out.
-    if (m_autonomousCommand != null) {
+    if (m_autonomousCommand != null) 
+    {
       m_autonomousCommand.cancel();
     }
   }
 
   /** This function is called periodically during operator control. */
   @Override
-  public void teleopPeriodic() { // works
-    //m_robotDrive.tankDrive(-m_stick.getLeftY(), m_stick.getRightY());  // LDR revert to previous tested code
+  public void teleopPeriodic() 
+  {
+    //m_robotDrive.tankCurvedDrive(-m_stick.getLeftY(), m_stick.getRightY());  // LDR revert to previous tested code
     m_robotIntake.intakeToggle(m_stick, m_stick2, IntakeRollersConstants.kIntakeSpeed);
-    //m_robotIntake.intakeSpin(m_stick, m_stick2, IntakeRollersConstants.kIntakeSpeed);
     m_robotFlywheel.flyWheelToggle(m_stick, m_stick2, FlywheelConstants.kFlywheelLowSpeed, FlywheelConstants.kFlywheelHighSpeed);
     m_robotConveyer.conveyerRun(m_stick, m_stick2, ConveyerConstants.kConveyerSpeed);
     m_robotClimber.ClimberRun(m_stick, m_stick2, ClimberConstants.kClimberSpeed);
     m_robotDrive.arcadeCurvedDrive(m_stick.getRightX()*0.65, -m_stick.getLeftY());
     m_robotClimber.climberjoystick(m_stick2, m_stick2.getLeftY());
-    //m_robotDrive.tankCurvedDrive(-m_stick.getLeftY(), m_stick.getRightY());
   }
 
   @Override

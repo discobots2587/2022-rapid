@@ -9,11 +9,11 @@ package frc.robot.subsystems;
 
 import com.ctre.phoenix.motorcontrol.can.TalonSRX;
 import com.ctre.phoenix.motorcontrol.ControlMode;
-//import edu.wpi.first.wpilibj.drive.DifferentialDrive;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants.DriveTrainConstants;
 
-public class DriveTrain extends SubsystemBase {
+public class DriveTrain extends SubsystemBase 
+{
     private final TalonSRX leftMaster = new TalonSRX(DriveTrainConstants.kleftMasterID);
     private final TalonSRX rightMaster = new TalonSRX(DriveTrainConstants.krightMasterID);
     private final TalonSRX leftSlave = new TalonSRX(DriveTrainConstants.kleftSlaveID);
@@ -22,14 +22,16 @@ public class DriveTrain extends SubsystemBase {
   /**
    * Creates a new DriveTrain.
    */
-  public DriveTrain()  {
-   
+  public DriveTrain()  
+  {
     setMotorCurrentLimits();
 
     leftSlave.follow(leftMaster);
     rightSlave.follow(rightMaster);
   }
-  private void setMotorCurrentLimits() {
+
+  private void setMotorCurrentLimits() 
+  {
     rightMaster.configContinuousCurrentLimit(DriveTrainConstants.kmotorCurrentLimit);
     rightMaster.configPeakCurrentLimit(0);
     rightMaster.configPeakCurrentDuration(0);
@@ -53,11 +55,13 @@ public class DriveTrain extends SubsystemBase {
   }
 
   @Override
-  public void periodic() {
+  public void periodic() 
+  {
     // This method will be called once per scheduler run
   }
 
-  public void arcadeDrive(double throttle, double turn) {   //commented out , this code does not build -Andy
+  public void arcadeDrive(double throttle, double turn) 
+  {   
     double leftPower = throttle + turn;
     double rightPower = throttle - turn;
 
@@ -86,7 +90,8 @@ public class DriveTrain extends SubsystemBase {
     rightMaster.set(ControlMode.PercentOutput, rightPower);
   }
 
-  public void tankDrive(double leftPower, double rightPower) {
+  public void tankDrive(double leftPower, double rightPower) 
+  {
     leftMaster.set(ControlMode.PercentOutput, leftPower);
     rightMaster.set(ControlMode.PercentOutput, rightPower);
   }
