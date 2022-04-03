@@ -42,19 +42,6 @@ public class Conveyer
     {
       stop();
     }
-    
-    /*if(controller.getBButtonPressed())
-    {
-      index(power);
-    }
-    else if (controller2.getXButtonPressed())
-    {
-      index(-power);
-    }
-    else
-    {
-      stop();
-    }*/
 
   }
   
@@ -84,4 +71,23 @@ public class Conveyer
     return state;
   }
 
+  public boolean getLeftConveyerState()
+  {
+    boolean status = false;  
+    if (leftConveyer.getSupplyCurrent() != 0)
+    {
+      status = true;
+    }
+    return status;
+  }
+
+  public boolean getRightConveyerState()
+  {
+    boolean status = false;  
+    if (conveyer.getSupplyCurrent() != 0)
+    {
+      status = true;
+    }
+    return status;
+  }
 }

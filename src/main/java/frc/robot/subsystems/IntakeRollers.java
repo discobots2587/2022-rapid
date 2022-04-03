@@ -124,5 +124,14 @@ public class IntakeRollers
     return state;
   }
 
+  public boolean getRollerState()
+  {
+    boolean status = false;  
+    if (rollers.getSupplyCurrent() != 0)
+    {
+      status = true;
+    }
+    return status;
+  }
   
 }

@@ -95,7 +95,7 @@ public class Flywheel
   
   public void shoot(double power) 
   {
-    leadFlywheel.set( power);
+    leadFlywheel.set(power);
   }
 
   //Stop the flywheel
@@ -104,7 +104,6 @@ public class Flywheel
   {
     leadFlywheel.set((double)0.0);
   }
-
 
   public void setState(FlywheelStates istate) 
   {
@@ -116,4 +115,18 @@ public class Flywheel
     return state;
   }
 
+  public boolean getFlywheelState()
+  {
+    boolean status = false;
+    if (leadFlywheel.get() > FlywheelConstants.kFlywheelHighSpeed - 0.05)
+    {
+      status = true;
+    }
+    return status;
+  }
+  
+  public double getFlywheelVelocity()
+  {
+    return leadFlywheel.get();
+  }
 }

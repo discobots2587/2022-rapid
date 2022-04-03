@@ -22,6 +22,9 @@ import frc.robot.Constants.IntakeRollersConstants;
 import frc.robot.Constants.FlywheelConstants;
 import frc.robot.Constants.ConveyerConstants;
 import frc.robot.Constants.ClimberConstants;
+
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
+
 /**
  * The VM is configured to automatically run this class, and to call the functions corresponding to
  * each mode, as described in the TimedRobot documentation. If you change the name of this class or
@@ -54,6 +57,13 @@ public class Robot extends TimedRobot
     // Instantiate our RobotContainer.  This will perform all our button bindings, and put our
     // autonomous chooser on the dashboard.
     m_robotContainer = new RobotContainer();
+
+    //SmartDashboard.putNumber("Joystick Y value", m_stick.getLeftY());
+    SmartDashboard.putBoolean("Left Conveyer", m_robotConveyer.getLeftConveyerState());
+    SmartDashboard.putBoolean("Right Conveyer", m_robotConveyer.getRightConveyerState());
+    SmartDashboard.putBoolean("Intake Roller", m_robotIntake.getRollerState());
+    SmartDashboard.putBoolean("Flywheel High", m_robotFlywheel.getFlywheelState());
+    SmartDashboard.putNumber("Flywheel Velocity", m_robotFlywheel.getFlywheelVelocity());
 
   }
 
