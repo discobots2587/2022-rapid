@@ -11,7 +11,7 @@ public class Flywheel
   private CANSparkMax leadFlywheel = new CANSparkMax(FlywheelConstants.kLeftFlywheelID, MotorType.kBrushless);
   private CANSparkMax followFlywheel = new CANSparkMax(FlywheelConstants.kRightFlywheelID, MotorType.kBrushless);
   private boolean toggle = false;
-
+  
   public static enum FlywheelStates 
   {
     OFF, IN, OUT
@@ -60,6 +60,7 @@ public class Flywheel
           stop();
           toggle = false;
           System.out.println("Flywheel OFF\n");
+          
       } 
       else 
       {
@@ -86,6 +87,7 @@ public class Flywheel
           stop();
           shoot(highPower);
           toggle = true;
+
           System.out.println("Flywheel HIGH\n");
       }
     }
@@ -97,6 +99,8 @@ public class Flywheel
   {
     leadFlywheel.set(power);
   }
+
+
 
   //Stop the flywheel
   

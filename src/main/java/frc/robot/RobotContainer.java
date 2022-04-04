@@ -19,6 +19,7 @@ import edu.wpi.first.wpilibj2.command.WaitCommand;
 //import frc.robot.subsystems.IntakeRollers;
 
 
+
 /**
  * This class is where the bulk of the robot should be declared. Since Command-based is a
  * "declarative" paradigm, very little robot logic should actually be handled in the {@link Robot}
@@ -27,14 +28,7 @@ import edu.wpi.first.wpilibj2.command.WaitCommand;
  */
 public class RobotContainer {
   // The robot's subsystems and commands are defined here...
-  // private final DriveTrain driveTrain = new DriveTrain();
-  // private final  XboxController controller = new XboxController(0);
-  //private final IntakeRollers intakeRollers = new IntakeRollers(); //had error, need to check -Andy 
-
-  //private final DriveTrain driveTrain = new DriveTrain();
-  //private final IntakeRollers intakeRollers = new IntakeRollers();
   
-  //private final XboxController controller = new XboxController(0);
 
   private final Command m_autonomousCommand = new WaitCommand(2);
   
@@ -76,4 +70,10 @@ public class RobotContainer {
     return m_autonomousCommand;
   }
 
+  
+
+  
+
+    
+  
 }
