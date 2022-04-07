@@ -122,7 +122,7 @@ public class Flywheel
   public boolean getFlywheelState()
   {
     boolean status = false;
-    if (leadFlywheel.get() > FlywheelConstants.kFlywheelHighSpeed - 0.05)
+    if (leadFlywheel.getOutputCurrent() > 0)
     {
       status = true;
     }
@@ -131,6 +131,6 @@ public class Flywheel
   
   public double getFlywheelVelocity()
   {
-    return leadFlywheel.get();
+    return leadFlywheel.getOutputCurrent();
   }
 }

@@ -127,7 +127,7 @@ public class IntakeRollers
   public boolean getRollerState()
   {
     boolean status = false;  
-    if (rollers.getSupplyCurrent() != 0)
+    if (rollers.getMotorOutputPercent() != 0)
     {
       status = true;
     }

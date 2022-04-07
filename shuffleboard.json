@@ -73,6 +73,17 @@
               "_source0": "network_table:///SmartDashboard/Flywheel Velocity",
               "_title": "Flywheel Velocity"
             }
+          },
+          "5,0": {
+            "size": [
+              1,
+              1
+            ],
+            "content": {
+              "_type": "ComboBox Chooser",
+              "_source0": "network_table:///SmartDashboard/SendableChooser[0]",
+              "_title": "SendableChooser[0]"
+            }
           }
         }
       }

@@ -74,7 +74,7 @@ public class Conveyer
   public boolean getLeftConveyerState()
   {
     boolean status = false;  
-    if (leftConveyer.getSupplyCurrent() != 0)
+    if (leftConveyer.getMotorOutputPercent() != 0)
     {
       status = true;
     }
@@ -84,7 +84,10 @@ public class Conveyer
   public boolean getRightConveyerState()
   {
     boolean status = false;  
-    if (conveyer.getSupplyCurrent() != 0)
+    
+    //System.out.println(conveyer.getMotorOutputPercent() + "\n");
+
+    if (conveyer.getMotorOutputPercent() != 0)
     {
       status = true;
     }
