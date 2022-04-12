@@ -63,6 +63,9 @@ public class Robot extends TimedRobot
     dashboardSetup();
     
     m_chooser.setDefaultOption("TwoBallAuto", "TwoBallAuto");
+    m_chooser.addOption("None", "None");
+    m_chooser.addOption("TaxiOnly", "TaxiOnly");
+    m_chooser.addOption("OneBallAuto", "OneBallAuto");
     m_chooser.addOption("ThreeBallAuto", "ThreeBallAuto");
     SmartDashboard.putData(m_chooser);
   }
@@ -109,9 +112,18 @@ public class Robot extends TimedRobot
   public void autonomousPeriodic() 
   {
     autoTimeElapsed = Timer.getFPGATimestamp() - autoStart;
-    switch(m_chooser.getSelected()) {
+    switch(m_chooser.getSelected()) 
+    {
       case "TwoBallAuto":
         twoBallIntake(autoTimeElapsed);
+        break;
+      case "None":
+        break;
+      case "TaxiOnly":
+        taxi(autoTimeElapsed);
+        break;
+      case "OneBallAuto":
+        oneBallIntake(autoTimeElapsed);
         break;
       case "ThreeBallAuto":
         threeBallIntake(autoTimeElapsed);
@@ -295,6 +307,57 @@ public class Robot extends TimedRobot
     {
       m_robotIntake.stop();
     }
+  }
+
+  public void taxi(double autoTimeElapsed)
+  {
+    if(autoTimeElapsed > 1.0 && autoTimeElapsed < 2.7)
+    {
+      m_robotDrive.forward(0.5);
+    }
+    else if(autoTimeElapsed > 4.0 && autoTimeElapsed < 5.7)
+    {
+      m_robotDrive.forward(-0.5);
+    }
+    else
+    {
+      m_robotDrive.stopMotor();
+    }
+  }
+
+  public void oneBallIntake(double autoTimeElapsed)
+  {
+    if(autoTimeElapsed < 5.0)  
+    {
+      m_robotFlywheel.shoot(FlywheelConstants.kFlywheelHighSpeed);
+    }
+    else
+    {
+      m_robotFlywheel.stop();
+    }
+    
+    if(autoTimeElapsed > 2.0 && autoTimeElapsed < 5.0)
+    {
+      m_robotConveyer.index(ConveyerConstants.kConveyerSpeed);
+    }
+    else
+    {
+      m_robotConveyer.stop();
+    }
+    
+    if(autoTimeElapsed > 6.0 && autoTimeElapsed < 7.7)
+    {
+      m_robotDrive.forward(0.5);
+    }
+    else if(autoTimeElapsed > 9.0 && autoTimeElapsed < 10.7)
+    {
+      m_robotDrive.forward(-0.5);
+    }
+    else
+    {
+      m_robotDrive.stopMotor();
+    }
+
   }
 
   public void dashboardSetup()
